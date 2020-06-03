@@ -22,8 +22,24 @@
     <title>1.流水灯仿真电路--左右移位寄存器</title>
     <url>/2020/06/03/1-%E6%B5%81%E6%B0%B4%E7%81%AF%E4%BB%BF%E7%9C%9F%E7%94%B5%E8%B7%AF-%E5%B7%A6%E5%8F%B3%E7%A7%BB%E4%BD%8D%E5%AF%84%E5%AD%98%E5%99%A8/</url>
     <content><![CDATA[<p>目标为数字电路与逻辑设计的一份作业：流水灯的仿真电路。<br><br>先来介绍左右移位寄存器————74LS194的例子。<br></p>
-<p>#74LS194介绍<br>移位寄存器是指寄存器中所存的代码能够在脉冲的作用下依次左移或右移，在multism中使用74LS194D。<br><br><img src="/2020/06/03/1-%E6%B5%81%E6%B0%B4%E7%81%AF%E4%BB%BF%E7%9C%9F%E7%94%B5%E8%B7%AF-%E5%B7%A6%E5%8F%B3%E7%A7%BB%E4%BD%8D%E5%AF%84%E5%AD%98%E5%99%A8/0.png" alt><br><br>74LS194对应的功能表如下<br><br><img src="/2020/06/03/1-%E6%B5%81%E6%B0%B4%E7%81%AF%E4%BB%BF%E7%9C%9F%E7%94%B5%E8%B7%AF-%E5%B7%A6%E5%8F%B3%E7%A7%BB%E4%BD%8D%E5%AF%84%E5%AD%98%E5%99%A8/1.png" alt><br><br>各引脚对应关系如下：<br><br><img src="/2020/06/03/1-%E6%B5%81%E6%B0%B4%E7%81%AF%E4%BB%BF%E7%9C%9F%E7%94%B5%E8%B7%AF-%E5%B7%A6%E5%8F%B3%E7%A7%BB%E4%BD%8D%E5%AF%84%E5%AD%98%E5%99%A8/2.png" alt><br></p>
-<p>#仿真练习<br><img src="/2020/06/03/1-%E6%B5%81%E6%B0%B4%E7%81%AF%E4%BB%BF%E7%9C%9F%E7%94%B5%E8%B7%AF-%E5%B7%A6%E5%8F%B3%E7%A7%BB%E4%BD%8D%E5%AF%84%E5%AD%98%E5%99%A8/3.png" alt><br><br>LED阴极接地，阳极接输出引脚，输出引脚为1时，点亮，这里点亮将呈现绿灯。先使A闭合，输出清零，LED都是灭灯状态。闭合B，CLK由低电平变成高电平，产生上升沿，寄存器发生移位。由于SR为高电平，寄存器右移。由于S0为高电平，S1为低电平，记高电平为1，低电平为0，(QA QB QC QD)由(0 0 0 0)变成(1 0 0 0)。每一次闭合B，都将产生一次移位，直到(QA QB QC QD)变成(1 1 1 1)。</p>
+<h1 id="74LS194介绍"><a href="#74LS194介绍" class="headerlink" title="74LS194介绍"></a>74LS194介绍</h1><p>移位寄存器是指寄存器中所存的代码能够在脉冲的作用下依次左移或右移，在multism中使用74LS194D。<br><br><img src="/2020/06/03/1-%E6%B5%81%E6%B0%B4%E7%81%AF%E4%BB%BF%E7%9C%9F%E7%94%B5%E8%B7%AF-%E5%B7%A6%E5%8F%B3%E7%A7%BB%E4%BD%8D%E5%AF%84%E5%AD%98%E5%99%A8/0.png" alt><br><br>74LS194对应的功能表如下<br><br><img src="/2020/06/03/1-%E6%B5%81%E6%B0%B4%E7%81%AF%E4%BB%BF%E7%9C%9F%E7%94%B5%E8%B7%AF-%E5%B7%A6%E5%8F%B3%E7%A7%BB%E4%BD%8D%E5%AF%84%E5%AD%98%E5%99%A8/1.png" alt><br><br>各引脚对应关系如下：<br><br><img src="/2020/06/03/1-%E6%B5%81%E6%B0%B4%E7%81%AF%E4%BB%BF%E7%9C%9F%E7%94%B5%E8%B7%AF-%E5%B7%A6%E5%8F%B3%E7%A7%BB%E4%BD%8D%E5%AF%84%E5%AD%98%E5%99%A8/2.png" alt><br></p>
+<h1 id="仿真练习"><a href="#仿真练习" class="headerlink" title="仿真练习"></a>仿真练习</h1><p><img src="/2020/06/03/1-%E6%B5%81%E6%B0%B4%E7%81%AF%E4%BB%BF%E7%9C%9F%E7%94%B5%E8%B7%AF-%E5%B7%A6%E5%8F%B3%E7%A7%BB%E4%BD%8D%E5%AF%84%E5%AD%98%E5%99%A8/3.png" alt><br><br>LED阴极接地，阳极接输出引脚，输出引脚为1时，点亮，这里点亮将呈现绿灯。先使A闭合，输出清零，LED都是灭灯状态。闭合B，CLK由低电平变成高电平，产生上升沿，寄存器发生移位。由于SR为高电平，寄存器右移。由于S0为高电平，S1为低电平，记高电平为1，低电平为0，(QA QB QC QD)由(0 0 0 0)变成(1 0 0 0)。每一次闭合B，都将产生一次移位，直到(QA QB QC QD)变成(1 1 1 1)。</p>
+]]></content>
+      <categories>
+        <category>电子</category>
+      </categories>
+      <tags>
+        <tag>multism</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>2-流水灯仿真电路-初级流水灯</title>
+    <url>/2020/06/03/2-%E6%B5%81%E6%B0%B4%E7%81%AF%E4%BB%BF%E7%9C%9F%E7%94%B5%E8%B7%AF-%E5%88%9D%E7%BA%A7%E6%B5%81%E6%B0%B4%E7%81%AF/</url>
+    <content><![CDATA[<p>左右移位寄存器初步完成了让LED依顺序亮起来的功能，但只能使其依次点亮一轮，需要对电路进行改进。</p>
+<h1 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h1><p><img src="/2020/06/03/2-%E6%B5%81%E6%B0%B4%E7%81%AF%E4%BB%BF%E7%9C%9F%E7%94%B5%E8%B7%AF-%E5%88%9D%E7%BA%A7%E6%B5%81%E6%B0%B4%E7%81%AF/0.png" alt><br><br>初步流水灯改进，功能为，使LED由左往右逐次点亮，再使LED由右往左逐次熄灭，往复循环。将过程拆分为两个步骤，由左往右点亮，由右往左熄灭。<br><br>以下记高电平为1，低电平为0。<br><br>对于一步骤：由左往右点亮。此时需要SR=1，SL=0，S0=1，S1=0。且可以知道，此时QA=0，QD=0。<br><br>对于二步骤：由右往左点亮。此时需要SR1，SL=0，S0=0，S1=1。且可以知道，此时QA=1，QD=1。<br><br>通过以上分析可知，只有当QA和QD为特定值的时候，S0，S1才会发生改变。这里就需要一个能够存储电平状态，但又能在特定情况下改变输出的电路。故采用上升沿的D触发器。上升沿的D触发器需要一个脉冲控制信号和一个输入信号。考虑到这些，将(QA=0，QD=0)和(QA=1，QD=1)组合成一个脉冲控制信号，只有满足这两个条件时，信号为1，否则信号为0；将QA或QD作为输入信号。</p>
+<h1 id="D触发器"><a href="#D触发器" class="headerlink" title="D触发器"></a>D触发器</h1><p>这里采用型号为74LS74D的D触发器。<br><br><img src="/2020/06/03/2-%E6%B5%81%E6%B0%B4%E7%81%AF%E4%BB%BF%E7%9C%9F%E7%94%B5%E8%B7%AF-%E5%88%9D%E7%BA%A7%E6%B5%81%E6%B0%B4%E7%81%AF/1.png" alt><br><br>功能表如下：<br><br><img src="/2020/06/03/2-%E6%B5%81%E6%B0%B4%E7%81%AF%E4%BB%BF%E7%9C%9F%E7%94%B5%E8%B7%AF-%E5%88%9D%E7%BA%A7%E6%B5%81%E6%B0%B4%E7%81%AF/2.jpg" alt><br><br>multism仿真例子如下：<br><img src="/2020/06/03/2-%E6%B5%81%E6%B0%B4%E7%81%AF%E4%BB%BF%E7%9C%9F%E7%94%B5%E8%B7%AF-%E5%88%9D%E7%BA%A7%E6%B5%81%E6%B0%B4%E7%81%AF/3.png" alt><br><br>当B闭合，D始终为高电平，但Q输出端始终保持不变，只有A闭合的瞬间，CLK产生上升沿信号，Q才变成D的电平，此时LED点亮。<br><br>接下来将D触发器连接成需要完成的功能：Q连接S1，Q非连接S0，D连接移位寄存器的QA。这样，当QA=0时，S0=1，S1=0；当QA=1时，S0=0，S1=1。满足先前的分析。仿真图如下：<br><br><img src="/2020/06/03/2-%E6%B5%81%E6%B0%B4%E7%81%AF%E4%BB%BF%E7%9C%9F%E7%94%B5%E8%B7%AF-%E5%88%9D%E7%BA%A7%E6%B5%81%E6%B0%B4%E7%81%AF/4.png" alt><br></p>
+<h1 id="控制信号"><a href="#控制信号" class="headerlink" title="控制信号"></a>控制信号</h1><p><img src="/2020/06/03/2-%E6%B5%81%E6%B0%B4%E7%81%AF%E4%BB%BF%E7%9C%9F%E7%94%B5%E8%B7%AF-%E5%88%9D%E7%BA%A7%E6%B5%81%E6%B0%B4%E7%81%AF/5.png" alt><br><br>根据上表分析，可以得到输出Z与QA、QD的公式：<br><br><img src="/2020/06/03/2-%E6%B5%81%E6%B0%B4%E7%81%AF%E4%BB%BF%E7%9C%9F%E7%94%B5%E8%B7%AF-%E5%88%9D%E7%BA%A7%E6%B5%81%E6%B0%B4%E7%81%AF/6.png" alt><br></p>
+<h1 id="组合"><a href="#组合" class="headerlink" title="组合"></a>组合</h1><p>根据上述分析，最终仿真电路如下：<br><img src="/2020/06/03/2-%E6%B5%81%E6%B0%B4%E7%81%AF%E4%BB%BF%E7%9C%9F%E7%94%B5%E8%B7%AF-%E5%88%9D%E7%BA%A7%E6%B5%81%E6%B0%B4%E7%81%AF/7.png" alt><br></p>
 ]]></content>
       <categories>
         <category>电子</category>

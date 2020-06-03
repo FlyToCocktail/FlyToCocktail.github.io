@@ -20,19 +20,19 @@
     var CONFIG = {"hostname":"flytococktail.github.io","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta name="description" content="目标为数字电路与逻辑设计的一份作业：流水灯的仿真电路。先来介绍左右移位寄存器————74LS194的例子。 #74LS194介绍移位寄存器是指寄存器中所存的代码能够在脉冲的作用下依次左移或右移，在multism中使用74LS194D。74LS194对应的功能表如下各引脚对应关系如下： #仿真练习LED阴极接地，阳极接输出引脚，输出引脚为1时，点亮，这里点亮将呈现绿灯。先使A闭合，输出清零，LED都">
+  <meta name="description" content="目标为数字电路与逻辑设计的一份作业：流水灯的仿真电路。先来介绍左右移位寄存器————74LS194的例子。 74LS194介绍移位寄存器是指寄存器中所存的代码能够在脉冲的作用下依次左移或右移，在multism中使用74LS194D。74LS194对应的功能表如下各引脚对应关系如下： 仿真练习LED阴极接地，阳极接输出引脚，输出引脚为1时，点亮，这里点亮将呈现绿灯。先使A闭合，输出清零，LED都是灭">
 <meta property="og:type" content="article">
 <meta property="og:title" content="1.流水灯仿真电路--左右移位寄存器">
 <meta property="og:url" content="https://flytococktail.github.io/2020/06/03/1-%E6%B5%81%E6%B0%B4%E7%81%AF%E4%BB%BF%E7%9C%9F%E7%94%B5%E8%B7%AF-%E5%B7%A6%E5%8F%B3%E7%A7%BB%E4%BD%8D%E5%AF%84%E5%AD%98%E5%99%A8/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="目标为数字电路与逻辑设计的一份作业：流水灯的仿真电路。先来介绍左右移位寄存器————74LS194的例子。 #74LS194介绍移位寄存器是指寄存器中所存的代码能够在脉冲的作用下依次左移或右移，在multism中使用74LS194D。74LS194对应的功能表如下各引脚对应关系如下： #仿真练习LED阴极接地，阳极接输出引脚，输出引脚为1时，点亮，这里点亮将呈现绿灯。先使A闭合，输出清零，LED都">
+<meta property="og:description" content="目标为数字电路与逻辑设计的一份作业：流水灯的仿真电路。先来介绍左右移位寄存器————74LS194的例子。 74LS194介绍移位寄存器是指寄存器中所存的代码能够在脉冲的作用下依次左移或右移，在multism中使用74LS194D。74LS194对应的功能表如下各引脚对应关系如下： 仿真练习LED阴极接地，阳极接输出引脚，输出引脚为1时，点亮，这里点亮将呈现绿灯。先使A闭合，输出清零，LED都是灭">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://flytococktail.github.io/2020/06/03/1-%E6%B5%81%E6%B0%B4%E7%81%AF%E4%BB%BF%E7%9C%9F%E7%94%B5%E8%B7%AF-%E5%B7%A6%E5%8F%B3%E7%A7%BB%E4%BD%8D%E5%AF%84%E5%AD%98%E5%99%A8/0.png">
 <meta property="og:image" content="https://flytococktail.github.io/2020/06/03/1-%E6%B5%81%E6%B0%B4%E7%81%AF%E4%BB%BF%E7%9C%9F%E7%94%B5%E8%B7%AF-%E5%B7%A6%E5%8F%B3%E7%A7%BB%E4%BD%8D%E5%AF%84%E5%AD%98%E5%99%A8/1.png">
 <meta property="og:image" content="https://flytococktail.github.io/2020/06/03/1-%E6%B5%81%E6%B0%B4%E7%81%AF%E4%BB%BF%E7%9C%9F%E7%94%B5%E8%B7%AF-%E5%B7%A6%E5%8F%B3%E7%A7%BB%E4%BD%8D%E5%AF%84%E5%AD%98%E5%99%A8/2.png">
 <meta property="og:image" content="https://flytococktail.github.io/2020/06/03/1-%E6%B5%81%E6%B0%B4%E7%81%AF%E4%BB%BF%E7%9C%9F%E7%94%B5%E8%B7%AF-%E5%B7%A6%E5%8F%B3%E7%A7%BB%E4%BD%8D%E5%AF%84%E5%AD%98%E5%99%A8/3.png">
 <meta property="article:published_time" content="2020-06-03T01:31:33.000Z">
-<meta property="article:modified_time" content="2020-06-03T02:34:13.355Z">
+<meta property="article:modified_time" content="2020-06-03T08:45:33.670Z">
 <meta property="article:author" content="John Doe">
 <meta property="article:tag" content="multism">
 <meta name="twitter:card" content="summary">
@@ -223,7 +223,7 @@
               <span class="post-meta-item-text">Posted on</span>
               
 
-              <time title="Created: 2020-06-03 09:31:33 / Modified: 10:34:13" itemprop="dateCreated datePublished" datetime="2020-06-03T09:31:33+08:00">2020-06-03</time>
+              <time title="Created: 2020-06-03 09:31:33 / Modified: 16:45:33" itemprop="dateCreated datePublished" datetime="2020-06-03T09:31:33+08:00">2020-06-03</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -247,8 +247,8 @@
 
       
         <p>目标为数字电路与逻辑设计的一份作业：流水灯的仿真电路。<br><br>先来介绍左右移位寄存器————74LS194的例子。<br></p>
-<p>#74LS194介绍<br>移位寄存器是指寄存器中所存的代码能够在脉冲的作用下依次左移或右移，在multism中使用74LS194D。<br><br><img src="/2020/06/03/1-%E6%B5%81%E6%B0%B4%E7%81%AF%E4%BB%BF%E7%9C%9F%E7%94%B5%E8%B7%AF-%E5%B7%A6%E5%8F%B3%E7%A7%BB%E4%BD%8D%E5%AF%84%E5%AD%98%E5%99%A8/0.png" alt><br><br>74LS194对应的功能表如下<br><br><img src="/2020/06/03/1-%E6%B5%81%E6%B0%B4%E7%81%AF%E4%BB%BF%E7%9C%9F%E7%94%B5%E8%B7%AF-%E5%B7%A6%E5%8F%B3%E7%A7%BB%E4%BD%8D%E5%AF%84%E5%AD%98%E5%99%A8/1.png" alt><br><br>各引脚对应关系如下：<br><br><img src="/2020/06/03/1-%E6%B5%81%E6%B0%B4%E7%81%AF%E4%BB%BF%E7%9C%9F%E7%94%B5%E8%B7%AF-%E5%B7%A6%E5%8F%B3%E7%A7%BB%E4%BD%8D%E5%AF%84%E5%AD%98%E5%99%A8/2.png" alt><br></p>
-<p>#仿真练习<br><img src="/2020/06/03/1-%E6%B5%81%E6%B0%B4%E7%81%AF%E4%BB%BF%E7%9C%9F%E7%94%B5%E8%B7%AF-%E5%B7%A6%E5%8F%B3%E7%A7%BB%E4%BD%8D%E5%AF%84%E5%AD%98%E5%99%A8/3.png" alt><br><br>LED阴极接地，阳极接输出引脚，输出引脚为1时，点亮，这里点亮将呈现绿灯。先使A闭合，输出清零，LED都是灭灯状态。闭合B，CLK由低电平变成高电平，产生上升沿，寄存器发生移位。由于SR为高电平，寄存器右移。由于S0为高电平，S1为低电平，记高电平为1，低电平为0，(QA QB QC QD)由(0 0 0 0)变成(1 0 0 0)。每一次闭合B，都将产生一次移位，直到(QA QB QC QD)变成(1 1 1 1)。</p>
+<h1 id="74LS194介绍"><a href="#74LS194介绍" class="headerlink" title="74LS194介绍"></a>74LS194介绍</h1><p>移位寄存器是指寄存器中所存的代码能够在脉冲的作用下依次左移或右移，在multism中使用74LS194D。<br><br><img src="/2020/06/03/1-%E6%B5%81%E6%B0%B4%E7%81%AF%E4%BB%BF%E7%9C%9F%E7%94%B5%E8%B7%AF-%E5%B7%A6%E5%8F%B3%E7%A7%BB%E4%BD%8D%E5%AF%84%E5%AD%98%E5%99%A8/0.png" alt><br><br>74LS194对应的功能表如下<br><br><img src="/2020/06/03/1-%E6%B5%81%E6%B0%B4%E7%81%AF%E4%BB%BF%E7%9C%9F%E7%94%B5%E8%B7%AF-%E5%B7%A6%E5%8F%B3%E7%A7%BB%E4%BD%8D%E5%AF%84%E5%AD%98%E5%99%A8/1.png" alt><br><br>各引脚对应关系如下：<br><br><img src="/2020/06/03/1-%E6%B5%81%E6%B0%B4%E7%81%AF%E4%BB%BF%E7%9C%9F%E7%94%B5%E8%B7%AF-%E5%B7%A6%E5%8F%B3%E7%A7%BB%E4%BD%8D%E5%AF%84%E5%AD%98%E5%99%A8/2.png" alt><br></p>
+<h1 id="仿真练习"><a href="#仿真练习" class="headerlink" title="仿真练习"></a>仿真练习</h1><p><img src="/2020/06/03/1-%E6%B5%81%E6%B0%B4%E7%81%AF%E4%BB%BF%E7%9C%9F%E7%94%B5%E8%B7%AF-%E5%B7%A6%E5%8F%B3%E7%A7%BB%E4%BD%8D%E5%AF%84%E5%AD%98%E5%99%A8/3.png" alt><br><br>LED阴极接地，阳极接输出引脚，输出引脚为1时，点亮，这里点亮将呈现绿灯。先使A闭合，输出清零，LED都是灭灯状态。闭合B，CLK由低电平变成高电平，产生上升沿，寄存器发生移位。由于SR为高电平，寄存器右移。由于S0为高电平，S1为低电平，记高电平为1，低电平为0，(QA QB QC QD)由(0 0 0 0)变成(1 0 0 0)。每一次闭合B，都将产生一次移位，直到(QA QB QC QD)变成(1 1 1 1)。</p>
 
     </div>
 
@@ -270,7 +270,10 @@
     <a href="/2020/06/02/hello-world/" rel="prev" title="Hello World">
       <i class="fa fa-chevron-left"></i> Hello World
     </a></div>
-      <div class="post-nav-item"></div>
+      <div class="post-nav-item">
+    <a href="/2020/06/03/2-%E6%B5%81%E6%B0%B4%E7%81%AF%E4%BB%BF%E7%9C%9F%E7%94%B5%E8%B7%AF-%E5%88%9D%E7%BA%A7%E6%B5%81%E6%B0%B4%E7%81%AF/" rel="next" title="2-流水灯仿真电路-初级流水灯">
+      2-流水灯仿真电路-初级流水灯 <i class="fa fa-chevron-right"></i>
+    </a></div>
     </div>
       </footer>
     
@@ -329,6 +332,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#74LS194介绍"><span class="nav-number">1.</span> <span class="nav-text">74LS194介绍</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#仿真练习"><span class="nav-number">2.</span> <span class="nav-text">仿真练习</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -342,7 +346,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">2</span>
+          <span class="site-state-item-count">3</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
