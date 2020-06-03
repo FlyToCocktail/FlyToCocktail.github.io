@@ -22,11 +22,9 @@
     <title>1.流水灯仿真电路--左右移位寄存器</title>
     <url>/2020/06/03/1-%E6%B5%81%E6%B0%B4%E7%81%AF%E4%BB%BF%E7%9C%9F%E7%94%B5%E8%B7%AF-%E5%B7%A6%E5%8F%B3%E7%A7%BB%E4%BD%8D%E5%AF%84%E5%AD%98%E5%99%A8/</url>
     <content><![CDATA[<p>目标为数字电路与逻辑设计的一份作业：流水灯的仿真电路。<br><br>先来介绍左右移位寄存器————74LS194的例子。<br></p>
-<p>#74LS194介绍</p>
-<p>移位寄存器是指寄存器中所存的代码能够在脉冲的作用下依次左移或右移，在multism中使用74LS194D。<br>
-![](0.png)<br>
-74LS194对应的功能表如下<br>
-![](1.png)<br></p>]]></content>
+<p>#74LS194介绍<br>移位寄存器是指寄存器中所存的代码能够在脉冲的作用下依次左移或右移，在multism中使用74LS194D。<br><br><img src="/2020/06/03/1-%E6%B5%81%E6%B0%B4%E7%81%AF%E4%BB%BF%E7%9C%9F%E7%94%B5%E8%B7%AF-%E5%B7%A6%E5%8F%B3%E7%A7%BB%E4%BD%8D%E5%AF%84%E5%AD%98%E5%99%A8/0.png" alt><br><br>74LS194对应的功能表如下<br><br><img src="/2020/06/03/1-%E6%B5%81%E6%B0%B4%E7%81%AF%E4%BB%BF%E7%9C%9F%E7%94%B5%E8%B7%AF-%E5%B7%A6%E5%8F%B3%E7%A7%BB%E4%BD%8D%E5%AF%84%E5%AD%98%E5%99%A8/1.png" alt><br><br>各引脚对应关系如下：<br><br><img src="/2020/06/03/1-%E6%B5%81%E6%B0%B4%E7%81%AF%E4%BB%BF%E7%9C%9F%E7%94%B5%E8%B7%AF-%E5%B7%A6%E5%8F%B3%E7%A7%BB%E4%BD%8D%E5%AF%84%E5%AD%98%E5%99%A8/2.png" alt><br></p>
+<p>#仿真练习<br><img src="/2020/06/03/1-%E6%B5%81%E6%B0%B4%E7%81%AF%E4%BB%BF%E7%9C%9F%E7%94%B5%E8%B7%AF-%E5%B7%A6%E5%8F%B3%E7%A7%BB%E4%BD%8D%E5%AF%84%E5%AD%98%E5%99%A8/3.png" alt><br><br>LED阴极接地，阳极接输出引脚，输出引脚为1时，点亮，这里点亮将呈现绿灯。先使A闭合，输出清零，LED都是灭灯状态。闭合B，CLK由低电平变成高电平，产生上升沿，寄存器发生移位。由于SR为高电平，寄存器右移。由于S0为高电平，S1为低电平，记高电平为1，低电平为0，(QA QB QC QD)由(0 0 0 0)变成(1 0 0 0)。每一次闭合B，都将产生一次移位，直到(QA QB QC QD)变成(1 1 1 1)。</p>
+]]></content>
       <categories>
         <category>电子</category>
       </categories>
