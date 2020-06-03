@@ -20,12 +20,12 @@
     var CONFIG = {"hostname":"flytococktail.github.io","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta name="description" content="左右移位寄存器初步完成了让LED依顺序亮起来的功能，但只能使其依次点亮一轮，需要对电路进行改进。 分析初步流水灯改进，功能为，使LED由左往右逐次点亮，再使LED由右往左逐次熄灭，往复循环。将过程拆分为两个步骤，由左往右点亮，由右往左熄灭。以下记高电平为1，低电平为0。对于一步骤：由左往右点亮。此时需要SR&#x3D;1，SL&#x3D;0，S0&#x3D;1，S1&#x3D;0。且可以知道，此时QA&#x3D;0，QD&#x3D;0。对于二步骤：由右往左">
+  <meta name="description" content="左右移位寄存器初步完成了让LED依顺序亮起来的功能，但只能使其依次点亮一轮，需要对电路进行改进。改进后初步完成流水灯的效果。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="2-流水灯仿真电路-初级流水灯">
 <meta property="og:url" content="https://flytococktail.github.io/2020/06/03/2-%E6%B5%81%E6%B0%B4%E7%81%AF%E4%BB%BF%E7%9C%9F%E7%94%B5%E8%B7%AF-%E5%88%9D%E7%BA%A7%E6%B5%81%E6%B0%B4%E7%81%AF/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="左右移位寄存器初步完成了让LED依顺序亮起来的功能，但只能使其依次点亮一轮，需要对电路进行改进。 分析初步流水灯改进，功能为，使LED由左往右逐次点亮，再使LED由右往左逐次熄灭，往复循环。将过程拆分为两个步骤，由左往右点亮，由右往左熄灭。以下记高电平为1，低电平为0。对于一步骤：由左往右点亮。此时需要SR&#x3D;1，SL&#x3D;0，S0&#x3D;1，S1&#x3D;0。且可以知道，此时QA&#x3D;0，QD&#x3D;0。对于二步骤：由右往左">
+<meta property="og:description" content="左右移位寄存器初步完成了让LED依顺序亮起来的功能，但只能使其依次点亮一轮，需要对电路进行改进。改进后初步完成流水灯的效果。">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://flytococktail.github.io/2020/06/03/2-%E6%B5%81%E6%B0%B4%E7%81%AF%E4%BB%BF%E7%9C%9F%E7%94%B5%E8%B7%AF-%E5%88%9D%E7%BA%A7%E6%B5%81%E6%B0%B4%E7%81%AF/0.png">
 <meta property="og:image" content="https://flytococktail.github.io/2020/06/03/2-%E6%B5%81%E6%B0%B4%E7%81%AF%E4%BB%BF%E7%9C%9F%E7%94%B5%E8%B7%AF-%E5%88%9D%E7%BA%A7%E6%B5%81%E6%B0%B4%E7%81%AF/1.png">
@@ -36,7 +36,7 @@
 <meta property="og:image" content="https://flytococktail.github.io/2020/06/03/2-%E6%B5%81%E6%B0%B4%E7%81%AF%E4%BB%BF%E7%9C%9F%E7%94%B5%E8%B7%AF-%E5%88%9D%E7%BA%A7%E6%B5%81%E6%B0%B4%E7%81%AF/6.png">
 <meta property="og:image" content="https://flytococktail.github.io/2020/06/03/2-%E6%B5%81%E6%B0%B4%E7%81%AF%E4%BB%BF%E7%9C%9F%E7%94%B5%E8%B7%AF-%E5%88%9D%E7%BA%A7%E6%B5%81%E6%B0%B4%E7%81%AF/7.png">
 <meta property="article:published_time" content="2020-06-03T08:33:12.000Z">
-<meta property="article:modified_time" content="2020-06-03T09:45:00.344Z">
+<meta property="article:modified_time" content="2020-06-03T09:57:59.344Z">
 <meta property="article:author" content="John Doe">
 <meta property="article:tag" content="multism">
 <meta name="twitter:card" content="summary">
@@ -227,7 +227,7 @@
               <span class="post-meta-item-text">Posted on</span>
               
 
-              <time title="Created: 2020-06-03 16:33:12 / Modified: 17:45:00" itemprop="dateCreated datePublished" datetime="2020-06-03T16:33:12+08:00">2020-06-03</time>
+              <time title="Created: 2020-06-03 16:33:12 / Modified: 17:57:59" itemprop="dateCreated datePublished" datetime="2020-06-03T16:33:12+08:00">2020-06-03</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -250,7 +250,9 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <p>左右移位寄存器初步完成了让LED依顺序亮起来的功能，但只能使其依次点亮一轮，需要对电路进行改进。</p>
+        <p>左右移位寄存器初步完成了让LED依顺序亮起来的功能，但只能使其依次点亮一轮，需要对电路进行改进。改进后初步完成流水灯的效果。</p>
+<a id="more"></a>
+
 <h1 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h1><p><img src="/2020/06/03/2-%E6%B5%81%E6%B0%B4%E7%81%AF%E4%BB%BF%E7%9C%9F%E7%94%B5%E8%B7%AF-%E5%88%9D%E7%BA%A7%E6%B5%81%E6%B0%B4%E7%81%AF/0.png" alt><br><br>初步流水灯改进，功能为，使LED由左往右逐次点亮，再使LED由右往左逐次熄灭，往复循环。将过程拆分为两个步骤，由左往右点亮，由右往左熄灭。<br><br>以下记高电平为1，低电平为0。<br><br>对于一步骤：由左往右点亮。此时需要SR=1，SL=0，S0=1，S1=0。且可以知道，此时QA=0，QD=0。<br><br>对于二步骤：由右往左点亮。此时需要SR1，SL=0，S0=0，S1=1。且可以知道，此时QA=1，QD=1。<br><br>通过以上分析可知，只有当QA和QD为特定值的时候，S0，S1才会发生改变。这里就需要一个能够存储电平状态，但又能在特定情况下改变输出的电路。故采用上升沿的D触发器。上升沿的D触发器需要一个脉冲控制信号和一个输入信号。考虑到这些，将(QA=0，QD=0)和(QA=1，QD=1)组合成一个脉冲控制信号，只有满足这两个条件时，信号为1，否则信号为0；将QA或QD作为输入信号。</p>
 <h1 id="D触发器"><a href="#D触发器" class="headerlink" title="D触发器"></a>D触发器</h1><p>这里采用型号为74LS74D的D触发器。<br><br><img src="/2020/06/03/2-%E6%B5%81%E6%B0%B4%E7%81%AF%E4%BB%BF%E7%9C%9F%E7%94%B5%E8%B7%AF-%E5%88%9D%E7%BA%A7%E6%B5%81%E6%B0%B4%E7%81%AF/1.png" alt><br><br>功能表如下：<br><br><img src="/2020/06/03/2-%E6%B5%81%E6%B0%B4%E7%81%AF%E4%BB%BF%E7%9C%9F%E7%94%B5%E8%B7%AF-%E5%88%9D%E7%BA%A7%E6%B5%81%E6%B0%B4%E7%81%AF/2.jpg" alt><br><br>multism仿真例子如下：<br><img src="/2020/06/03/2-%E6%B5%81%E6%B0%B4%E7%81%AF%E4%BB%BF%E7%9C%9F%E7%94%B5%E8%B7%AF-%E5%88%9D%E7%BA%A7%E6%B5%81%E6%B0%B4%E7%81%AF/3.png" alt><br><br>当B闭合，D始终为高电平，但Q输出端始终保持不变，只有A闭合的瞬间，CLK产生上升沿信号，Q才变成D的电平，此时LED点亮。<br><br>接下来将D触发器连接成需要完成的功能：Q连接S1，Q非连接S0，D连接移位寄存器的QA。这样，当QA=0时，S0=1，S1=0；当QA=1时，S0=0，S1=1。满足先前的分析。仿真图如下：<br><br><img src="/2020/06/03/2-%E6%B5%81%E6%B0%B4%E7%81%AF%E4%BB%BF%E7%9C%9F%E7%94%B5%E8%B7%AF-%E5%88%9D%E7%BA%A7%E6%B5%81%E6%B0%B4%E7%81%AF/4.png" alt><br></p>
 <h1 id="控制信号"><a href="#控制信号" class="headerlink" title="控制信号"></a>控制信号</h1><p><img src="/2020/06/03/2-%E6%B5%81%E6%B0%B4%E7%81%AF%E4%BB%BF%E7%9C%9F%E7%94%B5%E8%B7%AF-%E5%88%9D%E7%BA%A7%E6%B5%81%E6%B0%B4%E7%81%AF/5.png" alt><br><br>根据上表分析，可以得到输出Z与QA、QD的公式：<br><br><img src="/2020/06/03/2-%E6%B5%81%E6%B0%B4%E7%81%AF%E4%BB%BF%E7%9C%9F%E7%94%B5%E8%B7%AF-%E5%88%9D%E7%BA%A7%E6%B5%81%E6%B0%B4%E7%81%AF/6.png" alt><br></p>
