@@ -34,4 +34,19 @@
         <tag>multism</tag>
       </tags>
   </entry>
+  <entry>
+    <title>3-流水灯仿真电路-多个移位寄存器的流水灯</title>
+    <url>/2020/06/04/3-%E6%B5%81%E6%B0%B4%E7%81%AF%E4%BB%BF%E7%9C%9F%E7%94%B5%E8%B7%AF-%E5%A4%9A%E4%B8%AA%E7%A7%BB%E4%BD%8D%E5%AF%84%E5%AD%98%E5%99%A8%E7%9A%84%E6%B5%81%E6%B0%B4%E7%81%AF/</url>
+    <content><![CDATA[<p>单个移位寄存器能够实现4个LED的流水灯，流水灯要超过4个需要多个移位寄存器组合使用。这次实现两个移位寄存器的组合。</p>
+<a id="more"></a>
+
+<h1 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h1><p><img src="/2020/06/04/3-%E6%B5%81%E6%B0%B4%E7%81%AF%E4%BB%BF%E7%9C%9F%E7%94%B5%E8%B7%AF-%E5%A4%9A%E4%B8%AA%E7%A7%BB%E4%BD%8D%E5%AF%84%E5%AD%98%E5%99%A8%E7%9A%84%E6%B5%81%E6%B0%B4%E7%81%AF/0.png" alt><br><br>二片寄存器引脚的连接和一片寄存器引脚的连接基本一致，只有SL和SR引脚有所区别。一片的SL需要改为接到二片的QA，二片的SR需要接到一片的QD，以此完成一片二片移位数值的衔接。另外还有原本一片QD与门电路的连接需要改成二片QD与门电路相连接。<br><br><img src="/2020/06/04/3-%E6%B5%81%E6%B0%B4%E7%81%AF%E4%BB%BF%E7%9C%9F%E7%94%B5%E8%B7%AF-%E5%A4%9A%E4%B8%AA%E7%A7%BB%E4%BD%8D%E5%AF%84%E5%AD%98%E5%99%A8%E7%9A%84%E6%B5%81%E6%B0%B4%E7%81%AF/1.png" alt><br></p>
+]]></content>
+      <categories>
+        <category>电子</category>
+      </categories>
+      <tags>
+        <tag>multism</tag>
+      </tags>
+  </entry>
 </search>
