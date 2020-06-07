@@ -49,4 +49,38 @@
         <tag>multism</tag>
       </tags>
   </entry>
+  <entry>
+    <title>个人住房贷款模型之等额本金还款模型</title>
+    <url>/2020/06/08/%E4%B8%AA%E4%BA%BA%E4%BD%8F%E6%88%BF%E8%B4%B7%E6%AC%BE%E6%A8%A1%E5%9E%8B%E4%B9%8B%E7%AD%89%E9%A2%9D%E6%9C%AC%E9%87%91%E8%BF%98%E6%AC%BE%E6%A8%A1%E5%9E%8B/</url>
+    <content><![CDATA[<p>等额本金还款法，又称利随本清法、等本不等息还款法，就是借款人将贷款额平均分摊到整个还款期内，每期（月）归还，同时付清自上一个还款日至本次还款间的贷款余额所产生的利息的一种还款方式。</p>
+<a id="more"></a>
+
+<h1 id="差分方程"><a href="#差分方程" class="headerlink" title="差分方程"></a>差分方程</h1><p>设贷款额度为A，月利率为r，贷款期数（月）为n，第t期（月）应还款金额为yt，总利息为R，第t期的利息为Rt，第t期的应还本金为St。因为当月本金还款额=贷款本金/贷款期数（月数），即St=A/n，则第t期应还款额相对于第t-1期而言，应减少了A*r/n，即有差分方程<br><br><img src="/2020/06/08/%E4%B8%AA%E4%BA%BA%E4%BD%8F%E6%88%BF%E8%B4%B7%E6%AC%BE%E6%A8%A1%E5%9E%8B%E4%B9%8B%E7%AD%89%E9%A2%9D%E6%9C%AC%E9%87%91%E8%BF%98%E6%AC%BE%E6%A8%A1%E5%9E%8B/0.png" alt><br></p>
+<h1 id="模型通解"><a href="#模型通解" class="headerlink" title="模型通解"></a>模型通解</h1><p><img src="/2020/06/08/%E4%B8%AA%E4%BA%BA%E4%BD%8F%E6%88%BF%E8%B4%B7%E6%AC%BE%E6%A8%A1%E5%9E%8B%E4%B9%8B%E7%AD%89%E9%A2%9D%E6%9C%AC%E9%87%91%E8%BF%98%E6%AC%BE%E6%A8%A1%E5%9E%8B/1.png" alt><br><br><img src="/2020/06/08/%E4%B8%AA%E4%BA%BA%E4%BD%8F%E6%88%BF%E8%B4%B7%E6%AC%BE%E6%A8%A1%E5%9E%8B%E4%B9%8B%E7%AD%89%E9%A2%9D%E6%9C%AC%E9%87%91%E8%BF%98%E6%AC%BE%E6%A8%A1%E5%9E%8B/2.png" alt><br><br><img src="/2020/06/08/%E4%B8%AA%E4%BA%BA%E4%BD%8F%E6%88%BF%E8%B4%B7%E6%AC%BE%E6%A8%A1%E5%9E%8B%E4%B9%8B%E7%AD%89%E9%A2%9D%E6%9C%AC%E9%87%91%E8%BF%98%E6%AC%BE%E6%A8%A1%E5%9E%8B/3.png" alt><br></p>
+<h1 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h1><p>等额本金还款法的优点在于不会产生所谓的复利，因为每个月本金所产生的利息均在下个月的还款日内全部偿还，但是由于一开始本金比较大，使得每个月的利息也很高，因此在还款初期每月所需要偿还的数额较大，但到后期随着本金减少，每期利息也随之减少，还款金额也将逐渐减少。</p>
+]]></content>
+      <categories>
+        <category>数学建模</category>
+      </categories>
+      <tags>
+        <tag>matlab</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>个人住房贷款模型之等额本息还款模型</title>
+    <url>/2020/06/08/%E4%B8%AA%E4%BA%BA%E4%BD%8F%E6%88%BF%E8%B4%B7%E6%AC%BE%E6%A8%A1%E5%9E%8B%E4%B9%8B%E7%AD%89%E9%A2%9D%E6%9C%AC%E6%81%AF%E8%BF%98%E6%AC%BE%E6%A8%A1%E5%9E%8B/</url>
+    <content><![CDATA[<p>等额本息还款法是指借款人每月以相等的金额偿还贷款本息，每月还款金额包括本月应还的本金和利息，在借款截止日期前全部还清本息，但每月利息和本金所占的比例不同。由于每月还款额相同，显得相对简单、干脆，因此目前大部分借款人都采用这种还款方式。</p>
+<a id="more"></a>
+
+<h1 id="差分方程"><a href="#差分方程" class="headerlink" title="差分方程"></a>差分方程</h1><p>仍然设贷款额度为A，月利率为r，贷款期数为n，总利息为R，第t期的利息为Rt，另外用At表示第t期尚欠银行的贷款额，第t期应还本金为St，用y表示每期还款额，则第t期尚欠银行的贷款额到一个月后的本息之和为At*(1+r)，则第t+1期仍欠银行的贷款额为<br><br><img src="/2020/06/08/%E4%B8%AA%E4%BA%BA%E4%BD%8F%E6%88%BF%E8%B4%B7%E6%AC%BE%E6%A8%A1%E5%9E%8B%E4%B9%8B%E7%AD%89%E9%A2%9D%E6%9C%AC%E6%81%AF%E8%BF%98%E6%AC%BE%E6%A8%A1%E5%9E%8B/0.png" alt><br></p>
+<h1 id="模型通解"><a href="#模型通解" class="headerlink" title="模型通解"></a>模型通解</h1><p><img src="/2020/06/08/%E4%B8%AA%E4%BA%BA%E4%BD%8F%E6%88%BF%E8%B4%B7%E6%AC%BE%E6%A8%A1%E5%9E%8B%E4%B9%8B%E7%AD%89%E9%A2%9D%E6%9C%AC%E6%81%AF%E8%BF%98%E6%AC%BE%E6%A8%A1%E5%9E%8B/1.png" alt><br><br><img src="/2020/06/08/%E4%B8%AA%E4%BA%BA%E4%BD%8F%E6%88%BF%E8%B4%B7%E6%AC%BE%E6%A8%A1%E5%9E%8B%E4%B9%8B%E7%AD%89%E9%A2%9D%E6%9C%AC%E6%81%AF%E8%BF%98%E6%AC%BE%E6%A8%A1%E5%9E%8B/2.png" alt><br><br><img src="/2020/06/08/%E4%B8%AA%E4%BA%BA%E4%BD%8F%E6%88%BF%E8%B4%B7%E6%AC%BE%E6%A8%A1%E5%9E%8B%E4%B9%8B%E7%AD%89%E9%A2%9D%E6%9C%AC%E6%81%AF%E8%BF%98%E6%AC%BE%E6%A8%A1%E5%9E%8B/3.png" alt><br><br><img src="/2020/06/08/%E4%B8%AA%E4%BA%BA%E4%BD%8F%E6%88%BF%E8%B4%B7%E6%AC%BE%E6%A8%A1%E5%9E%8B%E4%B9%8B%E7%AD%89%E9%A2%9D%E6%9C%AC%E6%81%AF%E8%BF%98%E6%AC%BE%E6%A8%A1%E5%9E%8B/4.png" alt><br></p>
+<h1 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h1><p>按照银行现行制度规定，等额本息还款法以复利方式计息，即所谓的“利滚利”，且银行在每月的还款额中，是先收取利息后收取本金的。等额本息法的特点是在整个还款期内，每个月的还款额保持不变（遇调整利率除外），优点在于借款人可以准确掌握每月的还款额，容易记忆，省去许多麻烦。</p>
+]]></content>
+      <categories>
+        <category>数学建模</category>
+      </categories>
+      <tags>
+        <tag>matlab</tag>
+      </tags>
+  </entry>
 </search>
