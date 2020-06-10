@@ -20,27 +20,21 @@
     var CONFIG = {"hostname":"flytococktail.github.io","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta name="description" content="等额本息还款法是指借款人每月以相等的金额偿还贷款本息，每月还款金额包括本月应还的本金和利息，在借款截止日期前全部还清本息，但每月利息和本金所占的比例不同。由于每月还款额相同，显得相对简单、干脆，因此目前大部分借款人都采用这种还款方式。">
+  <meta name="description" content="基本模型模型1模型：  \begin{split}  &amp;min z&#x3D;cX \\ &amp;s.t. \quad AX \le b \end{split}命令：  X&#x3D;linprog(c, A, b)模型2模型：  \begin{split}  &amp;min z&#x3D;cX \\ &amp;s.t. \quad AX \le b \\ &amp;\quad\quad Aeq \bullet X &#x3D; beq \end{split}命令">
 <meta property="og:type" content="article">
-<meta property="og:title" content="个人住房贷款模型之等额本息还款模型">
-<meta property="og:url" content="https://flytococktail.github.io/2020/06/08/%E4%B8%AA%E4%BA%BA%E4%BD%8F%E6%88%BF%E8%B4%B7%E6%AC%BE%E6%A8%A1%E5%9E%8B%E4%B9%8B%E7%AD%89%E9%A2%9D%E6%9C%AC%E6%81%AF%E8%BF%98%E6%AC%BE%E6%A8%A1%E5%9E%8B/index.html">
+<meta property="og:title" content="MATLAB优化工具箱linprog解线性规划">
+<meta property="og:url" content="https://flytococktail.github.io/2020/06/10/MATLAB%E4%BC%98%E5%8C%96%E5%B7%A5%E5%85%B7%E7%AE%B1linprog%E8%A7%A3%E7%BA%BF%E6%80%A7%E8%A7%84%E5%88%92/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="等额本息还款法是指借款人每月以相等的金额偿还贷款本息，每月还款金额包括本月应还的本金和利息，在借款截止日期前全部还清本息，但每月利息和本金所占的比例不同。由于每月还款额相同，显得相对简单、干脆，因此目前大部分借款人都采用这种还款方式。">
+<meta property="og:description" content="基本模型模型1模型：  \begin{split}  &amp;min z&#x3D;cX \\ &amp;s.t. \quad AX \le b \end{split}命令：  X&#x3D;linprog(c, A, b)模型2模型：  \begin{split}  &amp;min z&#x3D;cX \\ &amp;s.t. \quad AX \le b \\ &amp;\quad\quad Aeq \bullet X &#x3D; beq \end{split}命令">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="https://flytococktail.github.io/2020/06/08/%E4%B8%AA%E4%BA%BA%E4%BD%8F%E6%88%BF%E8%B4%B7%E6%AC%BE%E6%A8%A1%E5%9E%8B%E4%B9%8B%E7%AD%89%E9%A2%9D%E6%9C%AC%E6%81%AF%E8%BF%98%E6%AC%BE%E6%A8%A1%E5%9E%8B/0.png">
-<meta property="og:image" content="https://flytococktail.github.io/2020/06/08/%E4%B8%AA%E4%BA%BA%E4%BD%8F%E6%88%BF%E8%B4%B7%E6%AC%BE%E6%A8%A1%E5%9E%8B%E4%B9%8B%E7%AD%89%E9%A2%9D%E6%9C%AC%E6%81%AF%E8%BF%98%E6%AC%BE%E6%A8%A1%E5%9E%8B/1.png">
-<meta property="og:image" content="https://flytococktail.github.io/2020/06/08/%E4%B8%AA%E4%BA%BA%E4%BD%8F%E6%88%BF%E8%B4%B7%E6%AC%BE%E6%A8%A1%E5%9E%8B%E4%B9%8B%E7%AD%89%E9%A2%9D%E6%9C%AC%E6%81%AF%E8%BF%98%E6%AC%BE%E6%A8%A1%E5%9E%8B/2.png">
-<meta property="og:image" content="https://flytococktail.github.io/2020/06/08/%E4%B8%AA%E4%BA%BA%E4%BD%8F%E6%88%BF%E8%B4%B7%E6%AC%BE%E6%A8%A1%E5%9E%8B%E4%B9%8B%E7%AD%89%E9%A2%9D%E6%9C%AC%E6%81%AF%E8%BF%98%E6%AC%BE%E6%A8%A1%E5%9E%8B/3.png">
-<meta property="og:image" content="https://flytococktail.github.io/2020/06/08/%E4%B8%AA%E4%BA%BA%E4%BD%8F%E6%88%BF%E8%B4%B7%E6%AC%BE%E6%A8%A1%E5%9E%8B%E4%B9%8B%E7%AD%89%E9%A2%9D%E6%9C%AC%E6%81%AF%E8%BF%98%E6%AC%BE%E6%A8%A1%E5%9E%8B/4.png">
-<meta property="article:published_time" content="2020-06-07T16:48:22.000Z">
-<meta property="article:modified_time" content="2020-06-10T09:44:14.622Z">
+<meta property="article:published_time" content="2020-06-10T09:38:25.000Z">
+<meta property="article:modified_time" content="2020-06-10T11:55:35.931Z">
 <meta property="article:author" content="John Doe">
 <meta property="article:tag" content="matlab">
-<meta property="article:tag" content="差分方程模型">
+<meta property="article:tag" content="线性规划">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://flytococktail.github.io/2020/06/08/%E4%B8%AA%E4%BA%BA%E4%BD%8F%E6%88%BF%E8%B4%B7%E6%AC%BE%E6%A8%A1%E5%9E%8B%E4%B9%8B%E7%AD%89%E9%A2%9D%E6%9C%AC%E6%81%AF%E8%BF%98%E6%AC%BE%E6%A8%A1%E5%9E%8B/0.png">
 
-<link rel="canonical" href="https://flytococktail.github.io/2020/06/08/%E4%B8%AA%E4%BA%BA%E4%BD%8F%E6%88%BF%E8%B4%B7%E6%AC%BE%E6%A8%A1%E5%9E%8B%E4%B9%8B%E7%AD%89%E9%A2%9D%E6%9C%AC%E6%81%AF%E8%BF%98%E6%AC%BE%E6%A8%A1%E5%9E%8B/">
+<link rel="canonical" href="https://flytococktail.github.io/2020/06/10/MATLAB%E4%BC%98%E5%8C%96%E5%B7%A5%E5%85%B7%E7%AE%B1linprog%E8%A7%A3%E7%BA%BF%E6%80%A7%E8%A7%84%E5%88%92/">
 
 
 <script id="page-configurations">
@@ -53,7 +47,7 @@
   };
 </script>
 
-  <title>个人住房贷款模型之等额本息还款模型 | Hexo</title>
+  <title>MATLAB优化工具箱linprog解线性规划 | Hexo</title>
   
 
 
@@ -201,7 +195,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="https://flytococktail.github.io/2020/06/08/%E4%B8%AA%E4%BA%BA%E4%BD%8F%E6%88%BF%E8%B4%B7%E6%AC%BE%E6%A8%A1%E5%9E%8B%E4%B9%8B%E7%AD%89%E9%A2%9D%E6%9C%AC%E6%81%AF%E8%BF%98%E6%AC%BE%E6%A8%A1%E5%9E%8B/">
+    <link itemprop="mainEntityOfPage" href="https://flytococktail.github.io/2020/06/10/MATLAB%E4%BC%98%E5%8C%96%E5%B7%A5%E5%85%B7%E7%AE%B1linprog%E8%A7%A3%E7%BA%BF%E6%80%A7%E8%A7%84%E5%88%92/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -214,7 +208,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          个人住房贷款模型之等额本息还款模型
+          MATLAB优化工具箱linprog解线性规划
         </h1>
 
         <div class="post-meta">
@@ -223,16 +217,10 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">Posted on</span>
+              
 
-              <time title="Created: 2020-06-08 00:48:22" itemprop="dateCreated datePublished" datetime="2020-06-08T00:48:22+08:00">2020-06-08</time>
+              <time title="Created: 2020-06-10 17:38:25 / Modified: 19:55:35" itemprop="dateCreated datePublished" datetime="2020-06-10T17:38:25+08:00">2020-06-10</time>
             </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-06-10 17:44:14" itemprop="dateModified" datetime="2020-06-10T17:44:14+08:00">2020-06-10</time>
-              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
@@ -244,7 +232,7 @@
             </span>
 
           
-            <span id="/2020/06/08/%E4%B8%AA%E4%BA%BA%E4%BD%8F%E6%88%BF%E8%B4%B7%E6%AC%BE%E6%A8%A1%E5%9E%8B%E4%B9%8B%E7%AD%89%E9%A2%9D%E6%9C%AC%E6%81%AF%E8%BF%98%E6%AC%BE%E6%A8%A1%E5%9E%8B/" class="post-meta-item leancloud_visitors" data-flag-title="个人住房贷款模型之等额本息还款模型" title="Views">
+            <span id="/2020/06/10/MATLAB%E4%BC%98%E5%8C%96%E5%B7%A5%E5%85%B7%E7%AE%B1linprog%E8%A7%A3%E7%BA%BF%E6%80%A7%E8%A7%84%E5%88%92/" class="post-meta-item leancloud_visitors" data-flag-title="MATLAB优化工具箱linprog解线性规划" title="Views">
               <span class="post-meta-item-icon">
                 <i class="fa fa-eye"></i>
               </span>
@@ -266,8 +254,8 @@
       </span>
       <span class="post-meta-item-text">Valine: </span>
     
-    <a title="valine" href="/2020/06/08/%E4%B8%AA%E4%BA%BA%E4%BD%8F%E6%88%BF%E8%B4%B7%E6%AC%BE%E6%A8%A1%E5%9E%8B%E4%B9%8B%E7%AD%89%E9%A2%9D%E6%9C%AC%E6%81%AF%E8%BF%98%E6%AC%BE%E6%A8%A1%E5%9E%8B/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2020/06/08/%E4%B8%AA%E4%BA%BA%E4%BD%8F%E6%88%BF%E8%B4%B7%E6%AC%BE%E6%A8%A1%E5%9E%8B%E4%B9%8B%E7%AD%89%E9%A2%9D%E6%9C%AC%E6%81%AF%E8%BF%98%E6%AC%BE%E6%A8%A1%E5%9E%8B/" itemprop="commentCount"></span>
+    <a title="valine" href="/2020/06/10/MATLAB%E4%BC%98%E5%8C%96%E5%B7%A5%E5%85%B7%E7%AE%B1linprog%E8%A7%A3%E7%BA%BF%E6%80%A7%E8%A7%84%E5%88%92/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2020/06/10/MATLAB%E4%BC%98%E5%8C%96%E5%B7%A5%E5%85%B7%E7%AE%B1linprog%E8%A7%A3%E7%BA%BF%E6%80%A7%E8%A7%84%E5%88%92/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -282,11 +270,39 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <p>等额本息还款法是指借款人每月以相等的金额偿还贷款本息，每月还款金额包括本月应还的本金和利息，在借款截止日期前全部还清本息，但每月利息和本金所占的比例不同。由于每月还款额相同，显得相对简单、干脆，因此目前大部分借款人都采用这种还款方式。</p>
-<a id="more"></a>
-<h1 id="差分方程"><a href="#差分方程" class="headerlink" title="差分方程"></a>差分方程</h1><p>仍然设贷款额度为A，月利率为r，贷款期数为n，总利息为R，第t期的利息为Rt，另外用At表示第t期尚欠银行的贷款额，第t期应还本金为St，用y表示每期还款额，则第t期尚欠银行的贷款额到一个月后的本息之和为At*(1+r)，则第t+1期仍欠银行的贷款额为<br><br><img src="/2020/06/08/%E4%B8%AA%E4%BA%BA%E4%BD%8F%E6%88%BF%E8%B4%B7%E6%AC%BE%E6%A8%A1%E5%9E%8B%E4%B9%8B%E7%AD%89%E9%A2%9D%E6%9C%AC%E6%81%AF%E8%BF%98%E6%AC%BE%E6%A8%A1%E5%9E%8B/0.png" alt><br></p>
-<h1 id="模型通解"><a href="#模型通解" class="headerlink" title="模型通解"></a>模型通解</h1><p><img src="/2020/06/08/%E4%B8%AA%E4%BA%BA%E4%BD%8F%E6%88%BF%E8%B4%B7%E6%AC%BE%E6%A8%A1%E5%9E%8B%E4%B9%8B%E7%AD%89%E9%A2%9D%E6%9C%AC%E6%81%AF%E8%BF%98%E6%AC%BE%E6%A8%A1%E5%9E%8B/1.png" alt><br><br><img src="/2020/06/08/%E4%B8%AA%E4%BA%BA%E4%BD%8F%E6%88%BF%E8%B4%B7%E6%AC%BE%E6%A8%A1%E5%9E%8B%E4%B9%8B%E7%AD%89%E9%A2%9D%E6%9C%AC%E6%81%AF%E8%BF%98%E6%AC%BE%E6%A8%A1%E5%9E%8B/2.png" alt><br><br><img src="/2020/06/08/%E4%B8%AA%E4%BA%BA%E4%BD%8F%E6%88%BF%E8%B4%B7%E6%AC%BE%E6%A8%A1%E5%9E%8B%E4%B9%8B%E7%AD%89%E9%A2%9D%E6%9C%AC%E6%81%AF%E8%BF%98%E6%AC%BE%E6%A8%A1%E5%9E%8B/3.png" alt><br><br><img src="/2020/06/08/%E4%B8%AA%E4%BA%BA%E4%BD%8F%E6%88%BF%E8%B4%B7%E6%AC%BE%E6%A8%A1%E5%9E%8B%E4%B9%8B%E7%AD%89%E9%A2%9D%E6%9C%AC%E6%81%AF%E8%BF%98%E6%AC%BE%E6%A8%A1%E5%9E%8B/4.png" alt><br></p>
-<h1 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h1><p>按照银行现行制度规定，等额本息还款法以复利方式计息，即所谓的“利滚利”，且银行在每月的还款额中，是先收取利息后收取本金的。等额本息法的特点是在整个还款期内，每个月的还款额保持不变（遇调整利率除外），优点在于借款人可以准确掌握每月的还款额，容易记忆，省去许多麻烦。</p>
+        <h1 id="基本模型"><a href="#基本模型" class="headerlink" title="基本模型"></a>基本模型</h1><h2 id="模型1"><a href="#模型1" class="headerlink" title="模型1"></a>模型1</h2><p>模型：</p>
+<script type="math/tex; mode=display">
+\begin{split} 
+&min z=cX \\
+&s.t. \quad AX \le b
+\end{split}</script><p>命令：</p>
+<script type="math/tex; mode=display">
+X=linprog(c, A, b)</script><h2 id="模型2"><a href="#模型2" class="headerlink" title="模型2"></a>模型2</h2><p>模型：</p>
+<script type="math/tex; mode=display">
+\begin{split} 
+&min z=cX \\
+&s.t. \quad AX \le b \\
+&\quad\quad Aeq \bullet X = beq
+\end{split}</script><p>命令</p>
+<script type="math/tex; mode=display">
+x=linprog(c, A, b, Aeq, beq)</script><p>注意：若没有不等式$AX \le b$存在,则A=[ ],b=[ ]</p>
+<h2 id="模型3"><a href="#模型3" class="headerlink" title="模型3"></a>模型3</h2><p>模型：</p>
+<script type="math/tex; mode=display">
+\begin{split} 
+&min z=cX \\
+&s.t. \quad AX \le b \\
+&\quad\quad\quad Aeq \bullet X = beq \\
+&VLB \le X \le VUB
+\end{split}</script><p>命令:</p>
+<script type="math/tex; mode=display">
+\begin{split} 
+&[1]\ x\ =linprog(c, A, b, Aeq, beq, VLB, VUB) \\
+&[2]\ x\ =linprog(c, A, b, Aeq, beq, VLB, VUB, X_0)
+\end{split}</script><p>注意：<br>[1]若没有等式约束：$Aeq \bullet X = beq$,则令$Aeq=[ ],beq=[ ]$.<br><br>[2]其中$X_0$表示初始点</p>
+<h2 id="基础命令"><a href="#基础命令" class="headerlink" title="基础命令"></a>基础命令</h2><p>命令：</p>
+<script type="math/tex; mode=display">
+[x,fval]=linprog(...)</script><p>返回最优解x及x处的目标函数值fval.</p>
+<p>$\text{a}bcdefghijklmnopqrstuvwxyz$<br><br>$ABCDEFGHIJKLMNOPQRSTUVWXYZ$</p>
 
     </div>
 
@@ -297,7 +313,7 @@
       <footer class="post-footer">
           <div class="post-tags">
               <a href="/tags/matlab/" rel="tag"># matlab</a>
-              <a href="/tags/%E5%B7%AE%E5%88%86%E6%96%B9%E7%A8%8B%E6%A8%A1%E5%9E%8B/" rel="tag"># 差分方程模型</a>
+              <a href="/tags/%E7%BA%BF%E6%80%A7%E8%A7%84%E5%88%92/" rel="tag"># 线性规划</a>
           </div>
 
         
@@ -306,13 +322,10 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/2020/06/08/%E4%B8%AA%E4%BA%BA%E4%BD%8F%E6%88%BF%E8%B4%B7%E6%AC%BE%E6%A8%A1%E5%9E%8B%E4%B9%8B%E7%AD%89%E9%A2%9D%E6%9C%AC%E9%87%91%E8%BF%98%E6%AC%BE%E6%A8%A1%E5%9E%8B/" rel="prev" title="个人住房贷款模型之等额本金还款模型">
-      <i class="fa fa-chevron-left"></i> 个人住房贷款模型之等额本金还款模型
+    <a href="/2020/06/08/%E4%B8%AA%E4%BA%BA%E4%BD%8F%E6%88%BF%E8%B4%B7%E6%AC%BE%E6%A8%A1%E5%9E%8B%E4%B9%8B%E7%AD%89%E9%A2%9D%E6%9C%AC%E6%81%AF%E8%BF%98%E6%AC%BE%E6%A8%A1%E5%9E%8B/" rel="prev" title="个人住房贷款模型之等额本息还款模型">
+      <i class="fa fa-chevron-left"></i> 个人住房贷款模型之等额本息还款模型
     </a></div>
-      <div class="post-nav-item">
-    <a href="/2020/06/10/MATLAB%E4%BC%98%E5%8C%96%E5%B7%A5%E5%85%B7%E7%AE%B1linprog%E8%A7%A3%E7%BA%BF%E6%80%A7%E8%A7%84%E5%88%92/" rel="next" title="MATLAB优化工具箱linprog解线性规划">
-      MATLAB优化工具箱linprog解线性规划 <i class="fa fa-chevron-right"></i>
-    </a></div>
+      <div class="post-nav-item"></div>
     </div>
       </footer>
     
@@ -372,7 +385,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#差分方程"><span class="nav-number">1.</span> <span class="nav-text">差分方程</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#模型通解"><span class="nav-number">2.</span> <span class="nav-text">模型通解</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#分析"><span class="nav-number">3.</span> <span class="nav-text">分析</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#基本模型"><span class="nav-number">1.</span> <span class="nav-text">基本模型</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#模型1"><span class="nav-number">1.1.</span> <span class="nav-text">模型1</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#模型2"><span class="nav-number">1.2.</span> <span class="nav-text">模型2</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#模型3"><span class="nav-number">1.3.</span> <span class="nav-text">模型3</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#基础命令"><span class="nav-number">1.4.</span> <span class="nav-text">基础命令</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -600,6 +613,59 @@
   
 
   
+      
+
+<script>
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      loader: {
+        source: {
+          '[tex]/amsCd': '[tex]/amscd',
+          '[tex]/AMScd': '[tex]/amscd'
+        }
+      },
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              let target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    (function () {
+      var script = document.createElement('script');
+      script.src = '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+    
 
   
 

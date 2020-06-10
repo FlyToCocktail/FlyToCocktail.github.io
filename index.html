@@ -188,6 +188,127 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://flytococktail.github.io/2020/06/10/MATLAB%E4%BC%98%E5%8C%96%E5%B7%A5%E5%85%B7%E7%AE%B1linprog%E8%A7%A3%E7%BA%BF%E6%80%A7%E8%A7%84%E5%88%92/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="John Doe">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/06/10/MATLAB%E4%BC%98%E5%8C%96%E5%B7%A5%E5%85%B7%E7%AE%B1linprog%E8%A7%A3%E7%BA%BF%E6%80%A7%E8%A7%84%E5%88%92/" class="post-title-link" itemprop="url">MATLAB优化工具箱linprog解线性规划</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2020-06-10 17:38:25 / Modified: 19:55:35" itemprop="dateCreated datePublished" datetime="2020-06-10T17:38:25+08:00">2020-06-10</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%95%B0%E5%AD%A6%E5%BB%BA%E6%A8%A1/" itemprop="url" rel="index"><span itemprop="name">数学建模</span></a>
+                </span>
+            </span>
+
+          
+            <span id="/2020/06/10/MATLAB%E4%BC%98%E5%8C%96%E5%B7%A5%E5%85%B7%E7%AE%B1linprog%E8%A7%A3%E7%BA%BF%E6%80%A7%E8%A7%84%E5%88%92/" class="post-meta-item leancloud_visitors" data-flag-title="MATLAB优化工具箱linprog解线性规划" title="Views">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">Views: </span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine: </span>
+    
+    <a title="valine" href="/2020/06/10/MATLAB%E4%BC%98%E5%8C%96%E5%B7%A5%E5%85%B7%E7%AE%B1linprog%E8%A7%A3%E7%BA%BF%E6%80%A7%E8%A7%84%E5%88%92/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2020/06/10/MATLAB%E4%BC%98%E5%8C%96%E5%B7%A5%E5%85%B7%E7%AE%B1linprog%E8%A7%A3%E7%BA%BF%E6%80%A7%E8%A7%84%E5%88%92/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="基本模型"><a href="#基本模型" class="headerlink" title="基本模型"></a>基本模型</h1><h2 id="模型1"><a href="#模型1" class="headerlink" title="模型1"></a>模型1</h2><p>模型：</p>
+<script type="math/tex; mode=display">
+\begin{split} 
+&min z=cX \\
+&s.t. \quad AX \le b
+\end{split}</script><p>命令：</p>
+<script type="math/tex; mode=display">
+X=linprog(c, A, b)</script><h2 id="模型2"><a href="#模型2" class="headerlink" title="模型2"></a>模型2</h2><p>模型：</p>
+<script type="math/tex; mode=display">
+\begin{split} 
+&min z=cX \\
+&s.t. \quad AX \le b \\
+&\quad\quad Aeq \bullet X = beq
+\end{split}</script><p>命令</p>
+<script type="math/tex; mode=display">
+x=linprog(c, A, b, Aeq, beq)</script><p>注意：若没有不等式$AX \le b$存在,则A=[ ],b=[ ]</p>
+<h2 id="模型3"><a href="#模型3" class="headerlink" title="模型3"></a>模型3</h2><p>模型：</p>
+<script type="math/tex; mode=display">
+\begin{split} 
+&min z=cX \\
+&s.t. \quad AX \le b \\
+&\quad\quad\quad Aeq \bullet X = beq \\
+&VLB \le X \le VUB
+\end{split}</script><p>命令:</p>
+<script type="math/tex; mode=display">
+\begin{split} 
+&[1]\ x\ =linprog(c, A, b, Aeq, beq, VLB, VUB) \\
+&[2]\ x\ =linprog(c, A, b, Aeq, beq, VLB, VUB, X_0)
+\end{split}</script><p>注意：<br>[1]若没有等式约束：$Aeq \bullet X = beq$,则令$Aeq=[ ],beq=[ ]$.<br><br>[2]其中$X_0$表示初始点</p>
+<h2 id="基础命令"><a href="#基础命令" class="headerlink" title="基础命令"></a>基础命令</h2><p>命令：</p>
+<script type="math/tex; mode=display">
+[x,fval]=linprog(...)</script><p>返回最优解x及x处的目标函数值fval.</p>
+<p>$\text{a}bcdefghijklmnopqrstuvwxyz$<br><br>$ABCDEFGHIJKLMNOPQRSTUVWXYZ$</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
     <link itemprop="mainEntityOfPage" href="https://flytococktail.github.io/2020/06/08/%E4%B8%AA%E4%BA%BA%E4%BD%8F%E6%88%BF%E8%B4%B7%E6%AC%BE%E6%A8%A1%E5%9E%8B%E4%B9%8B%E7%AD%89%E9%A2%9D%E6%9C%AC%E6%81%AF%E8%BF%98%E6%AC%BE%E6%A8%A1%E5%9E%8B/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -211,10 +332,16 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">Posted on</span>
-              
 
-              <time title="Created: 2020-06-08 00:48:22 / Modified: 00:54:23" itemprop="dateCreated datePublished" datetime="2020-06-08T00:48:22+08:00">2020-06-08</time>
+              <time title="Created: 2020-06-08 00:48:22" itemprop="dateCreated datePublished" datetime="2020-06-08T00:48:22+08:00">2020-06-08</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-06-10 17:44:14" itemprop="dateModified" datetime="2020-06-10T17:44:14+08:00">2020-06-10</time>
+              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
@@ -307,10 +434,16 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">Posted on</span>
-              
 
-              <time title="Created: 2020-06-08 00:32:04 / Modified: 00:52:49" itemprop="dateCreated datePublished" datetime="2020-06-08T00:32:04+08:00">2020-06-08</time>
+              <time title="Created: 2020-06-08 00:32:04" itemprop="dateCreated datePublished" datetime="2020-06-08T00:32:04+08:00">2020-06-08</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-06-10 17:42:42" itemprop="dateModified" datetime="2020-06-10T17:42:42+08:00">2020-06-10</time>
+              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
@@ -730,7 +863,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">5</span>
+          <span class="site-state-item-count">6</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -743,7 +876,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-count">4</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
@@ -942,6 +1075,61 @@
 
 
   
+
+  
+      
+
+<script>
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      loader: {
+        source: {
+          '[tex]/amsCd': '[tex]/amscd',
+          '[tex]/AMScd': '[tex]/amscd'
+        }
+      },
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              let target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    (function () {
+      var script = document.createElement('script');
+      script.src = '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+    
 
   
 
