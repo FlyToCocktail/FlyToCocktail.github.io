@@ -1,206 +1,291 @@
-<?xml version="1.0" encoding="utf-8"?>
-<search>
-  <entry>
-    <title>1.流水灯仿真电路--左右移位寄存器</title>
-    <url>/2020/06/03/1-%E6%B5%81%E6%B0%B4%E7%81%AF%E4%BB%BF%E7%9C%9F%E7%94%B5%E8%B7%AF-%E5%B7%A6%E5%8F%B3%E7%A7%BB%E4%BD%8D%E5%AF%84%E5%AD%98%E5%99%A8/</url>
-    <content><![CDATA[<p>目标为数字电路与逻辑设计的一份作业：流水灯的仿真电路。<br><br>先来介绍左右移位寄存器————74LS194的例子。<br></p>
-<a id="more"></a>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
 
-<h1 id="74LS194介绍"><a href="#74LS194介绍" class="headerlink" title="74LS194介绍"></a>74LS194介绍</h1><p>移位寄存器是指寄存器中所存的代码能够在脉冲的作用下依次左移或右移，在multism中使用74LS194D。<br><br><img src="/2020/06/03/1-%E6%B5%81%E6%B0%B4%E7%81%AF%E4%BB%BF%E7%9C%9F%E7%94%B5%E8%B7%AF-%E5%B7%A6%E5%8F%B3%E7%A7%BB%E4%BD%8D%E5%AF%84%E5%AD%98%E5%99%A8/0.png" alt><br><br>74LS194对应的功能表如下<br><br><img src="/2020/06/03/1-%E6%B5%81%E6%B0%B4%E7%81%AF%E4%BB%BF%E7%9C%9F%E7%94%B5%E8%B7%AF-%E5%B7%A6%E5%8F%B3%E7%A7%BB%E4%BD%8D%E5%AF%84%E5%AD%98%E5%99%A8/1.png" alt><br><br>各引脚对应关系如下：<br><br><img src="/2020/06/03/1-%E6%B5%81%E6%B0%B4%E7%81%AF%E4%BB%BF%E7%9C%9F%E7%94%B5%E8%B7%AF-%E5%B7%A6%E5%8F%B3%E7%A7%BB%E4%BD%8D%E5%AF%84%E5%AD%98%E5%99%A8/2.png" alt><br></p>
-<h1 id="仿真练习"><a href="#仿真练习" class="headerlink" title="仿真练习"></a>仿真练习</h1><p><img src="/2020/06/03/1-%E6%B5%81%E6%B0%B4%E7%81%AF%E4%BB%BF%E7%9C%9F%E7%94%B5%E8%B7%AF-%E5%B7%A6%E5%8F%B3%E7%A7%BB%E4%BD%8D%E5%AF%84%E5%AD%98%E5%99%A8/3.png" alt><br><br>LED阴极接地，阳极接输出引脚，输出引脚为1时，点亮，这里点亮将呈现绿灯。先使A闭合，输出清零，LED都是灭灯状态。闭合B，CLK由低电平变成高电平，产生上升沿，寄存器发生移位。由于SR为高电平，寄存器右移。由于S0为高电平，S1为低电平，记高电平为1，低电平为0，(QA QB QC QD)由(0 0 0 0)变成(1 0 0 0)。每一次闭合B，都将产生一次移位，直到(QA QB QC QD)变成(1 1 1 1)。</p>
-]]></content>
-      <categories>
-        <category>电子</category>
-      </categories>
-      <tags>
-        <tag>multism</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>2-流水灯仿真电路-初级流水灯</title>
-    <url>/2020/06/03/2-%E6%B5%81%E6%B0%B4%E7%81%AF%E4%BB%BF%E7%9C%9F%E7%94%B5%E8%B7%AF-%E5%88%9D%E7%BA%A7%E6%B5%81%E6%B0%B4%E7%81%AF/</url>
-    <content><![CDATA[<p>左右移位寄存器初步完成了让LED依顺序亮起来的功能，但只能使其依次点亮一轮，需要对电路进行改进。改进后初步完成流水灯的效果。</p>
-<a id="more"></a>
+<link rel="stylesheet" href="/css/main.css">
 
-<h1 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h1><p><img src="/2020/06/03/2-%E6%B5%81%E6%B0%B4%E7%81%AF%E4%BB%BF%E7%9C%9F%E7%94%B5%E8%B7%AF-%E5%88%9D%E7%BA%A7%E6%B5%81%E6%B0%B4%E7%81%AF/0.png" alt><br><br>初步流水灯改进，功能为，使LED由左往右逐次点亮，再使LED由右往左逐次熄灭，往复循环。将过程拆分为两个步骤，由左往右点亮，由右往左熄灭。<br><br>以下记高电平为1，低电平为0。<br><br>对于一步骤：由左往右点亮。此时需要SR=1，SL=0，S0=1，S1=0。且可以知道，此时QA=0，QD=0。<br><br>对于二步骤：由右往左点亮。此时需要SR1，SL=0，S0=0，S1=1。且可以知道，此时QA=1，QD=1。<br><br>通过以上分析可知，只有当QA和QD为特定值的时候，S0，S1才会发生改变。这里就需要一个能够存储电平状态，但又能在特定情况下改变输出的电路。故采用上升沿的D触发器。上升沿的D触发器需要一个脉冲控制信号和一个输入信号。考虑到这些，将(QA=0，QD=0)和(QA=1，QD=1)组合成一个脉冲控制信号，只有满足这两个条件时，信号为1，否则信号为0；将QA或QD作为输入信号。</p>
-<h1 id="D触发器"><a href="#D触发器" class="headerlink" title="D触发器"></a>D触发器</h1><p>这里采用型号为74LS74D的D触发器。<br><br><img src="/2020/06/03/2-%E6%B5%81%E6%B0%B4%E7%81%AF%E4%BB%BF%E7%9C%9F%E7%94%B5%E8%B7%AF-%E5%88%9D%E7%BA%A7%E6%B5%81%E6%B0%B4%E7%81%AF/1.png" alt><br><br>功能表如下：<br><br><img src="/2020/06/03/2-%E6%B5%81%E6%B0%B4%E7%81%AF%E4%BB%BF%E7%9C%9F%E7%94%B5%E8%B7%AF-%E5%88%9D%E7%BA%A7%E6%B5%81%E6%B0%B4%E7%81%AF/2.jpg" alt><br><br>multism仿真例子如下：<br><img src="/2020/06/03/2-%E6%B5%81%E6%B0%B4%E7%81%AF%E4%BB%BF%E7%9C%9F%E7%94%B5%E8%B7%AF-%E5%88%9D%E7%BA%A7%E6%B5%81%E6%B0%B4%E7%81%AF/3.png" alt><br><br>当B闭合，D始终为高电平，但Q输出端始终保持不变，只有A闭合的瞬间，CLK产生上升沿信号，Q才变成D的电平，此时LED点亮。<br><br>接下来将D触发器连接成需要完成的功能：Q连接S1，Q非连接S0，D连接移位寄存器的QA。这样，当QA=0时，S0=1，S1=0；当QA=1时，S0=0，S1=1。满足先前的分析。仿真图如下：<br><br><img src="/2020/06/03/2-%E6%B5%81%E6%B0%B4%E7%81%AF%E4%BB%BF%E7%9C%9F%E7%94%B5%E8%B7%AF-%E5%88%9D%E7%BA%A7%E6%B5%81%E6%B0%B4%E7%81%AF/4.png" alt><br></p>
-<h1 id="控制信号"><a href="#控制信号" class="headerlink" title="控制信号"></a>控制信号</h1><p><img src="/2020/06/03/2-%E6%B5%81%E6%B0%B4%E7%81%AF%E4%BB%BF%E7%9C%9F%E7%94%B5%E8%B7%AF-%E5%88%9D%E7%BA%A7%E6%B5%81%E6%B0%B4%E7%81%AF/5.png" alt><br><br>根据上表分析，可以得到输出Z与QA、QD的公式：<br><br><img src="/2020/06/03/2-%E6%B5%81%E6%B0%B4%E7%81%AF%E4%BB%BF%E7%9C%9F%E7%94%B5%E8%B7%AF-%E5%88%9D%E7%BA%A7%E6%B5%81%E6%B0%B4%E7%81%AF/6.png" alt><br></p>
-<h1 id="组合"><a href="#组合" class="headerlink" title="组合"></a>组合</h1><p>根据上述分析，最终仿真电路如下：<br><img src="/2020/06/03/2-%E6%B5%81%E6%B0%B4%E7%81%AF%E4%BB%BF%E7%9C%9F%E7%94%B5%E8%B7%AF-%E5%88%9D%E7%BA%A7%E6%B5%81%E6%B0%B4%E7%81%AF/7.png" alt><br></p>
-]]></content>
-      <categories>
-        <category>电子</category>
-      </categories>
-      <tags>
-        <tag>multism</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>3-流水灯仿真电路-多个移位寄存器的流水灯</title>
-    <url>/2020/06/04/3-%E6%B5%81%E6%B0%B4%E7%81%AF%E4%BB%BF%E7%9C%9F%E7%94%B5%E8%B7%AF-%E5%A4%9A%E4%B8%AA%E7%A7%BB%E4%BD%8D%E5%AF%84%E5%AD%98%E5%99%A8%E7%9A%84%E6%B5%81%E6%B0%B4%E7%81%AF/</url>
-    <content><![CDATA[<p>单个移位寄存器能够实现4个LED的流水灯，流水灯要超过4个需要多个移位寄存器组合使用。这次实现两个移位寄存器的组合。</p>
-<a id="more"></a>
 
-<h1 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h1><p><img src="/2020/06/04/3-%E6%B5%81%E6%B0%B4%E7%81%AF%E4%BB%BF%E7%9C%9F%E7%94%B5%E8%B7%AF-%E5%A4%9A%E4%B8%AA%E7%A7%BB%E4%BD%8D%E5%AF%84%E5%AD%98%E5%99%A8%E7%9A%84%E6%B5%81%E6%B0%B4%E7%81%AF/0.png" alt><br><br>二片寄存器引脚的连接和一片寄存器引脚的连接基本一致，只有SL和SR引脚有所区别。一片的SL需要改为接到二片的QA，二片的SR需要接到一片的QD，以此完成一片二片移位数值的衔接。另外还有原本一片QD与门电路的连接需要改成二片QD与门电路相连接。<br><br><img src="/2020/06/04/3-%E6%B5%81%E6%B0%B4%E7%81%AF%E4%BB%BF%E7%9C%9F%E7%94%B5%E8%B7%AF-%E5%A4%9A%E4%B8%AA%E7%A7%BB%E4%BD%8D%E5%AF%84%E5%AD%98%E5%99%A8%E7%9A%84%E6%B5%81%E6%B0%B4%E7%81%AF/1.png" alt><br></p>
-]]></content>
-      <categories>
-        <category>电子</category>
-      </categories>
-      <tags>
-        <tag>multism</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>个人住房贷款模型之等额本金还款模型</title>
-    <url>/2020/06/08/%E4%B8%AA%E4%BA%BA%E4%BD%8F%E6%88%BF%E8%B4%B7%E6%AC%BE%E6%A8%A1%E5%9E%8B%E4%B9%8B%E7%AD%89%E9%A2%9D%E6%9C%AC%E9%87%91%E8%BF%98%E6%AC%BE%E6%A8%A1%E5%9E%8B/</url>
-    <content><![CDATA[<p>等额本金还款法，又称利随本清法、等本不等息还款法，就是借款人将贷款额平均分摊到整个还款期内，每期（月）归还，同时付清自上一个还款日至本次还款间的贷款余额所产生的利息的一种还款方式。</p>
-<a id="more"></a>
-<h1 id="差分方程"><a href="#差分方程" class="headerlink" title="差分方程"></a>差分方程</h1><p>设贷款额度为A，月利率为r，贷款期数（月）为n，第t期（月）应还款金额为yt，总利息为R，第t期的利息为Rt，第t期的应还本金为St。因为当月本金还款额=贷款本金/贷款期数（月数），即St=A/n，则第t期应还款额相对于第t-1期而言，应减少了A*r/n，即有差分方程<br><br><img src="/2020/06/08/%E4%B8%AA%E4%BA%BA%E4%BD%8F%E6%88%BF%E8%B4%B7%E6%AC%BE%E6%A8%A1%E5%9E%8B%E4%B9%8B%E7%AD%89%E9%A2%9D%E6%9C%AC%E9%87%91%E8%BF%98%E6%AC%BE%E6%A8%A1%E5%9E%8B/0.png" alt><br></p>
-<h1 id="模型通解"><a href="#模型通解" class="headerlink" title="模型通解"></a>模型通解</h1><p><img src="/2020/06/08/%E4%B8%AA%E4%BA%BA%E4%BD%8F%E6%88%BF%E8%B4%B7%E6%AC%BE%E6%A8%A1%E5%9E%8B%E4%B9%8B%E7%AD%89%E9%A2%9D%E6%9C%AC%E9%87%91%E8%BF%98%E6%AC%BE%E6%A8%A1%E5%9E%8B/1.png" alt><br><br><img src="/2020/06/08/%E4%B8%AA%E4%BA%BA%E4%BD%8F%E6%88%BF%E8%B4%B7%E6%AC%BE%E6%A8%A1%E5%9E%8B%E4%B9%8B%E7%AD%89%E9%A2%9D%E6%9C%AC%E9%87%91%E8%BF%98%E6%AC%BE%E6%A8%A1%E5%9E%8B/2.png" alt><br><br><img src="/2020/06/08/%E4%B8%AA%E4%BA%BA%E4%BD%8F%E6%88%BF%E8%B4%B7%E6%AC%BE%E6%A8%A1%E5%9E%8B%E4%B9%8B%E7%AD%89%E9%A2%9D%E6%9C%AC%E9%87%91%E8%BF%98%E6%AC%BE%E6%A8%A1%E5%9E%8B/3.png" alt><br></p>
-<h1 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h1><p>等额本金还款法的优点在于不会产生所谓的复利，因为每个月本金所产生的利息均在下个月的还款日内全部偿还，但是由于一开始本金比较大，使得每个月的利息也很高，因此在还款初期每月所需要偿还的数额较大，但到后期随着本金减少，每期利息也随之减少，还款金额也将逐渐减少。</p>
-]]></content>
-      <categories>
-        <category>数学建模</category>
-      </categories>
-      <tags>
-        <tag>matlab</tag>
-        <tag>差分方程模型</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>个人住房贷款模型之等额本息还款模型</title>
-    <url>/2020/06/08/%E4%B8%AA%E4%BA%BA%E4%BD%8F%E6%88%BF%E8%B4%B7%E6%AC%BE%E6%A8%A1%E5%9E%8B%E4%B9%8B%E7%AD%89%E9%A2%9D%E6%9C%AC%E6%81%AF%E8%BF%98%E6%AC%BE%E6%A8%A1%E5%9E%8B/</url>
-    <content><![CDATA[<p>等额本息还款法是指借款人每月以相等的金额偿还贷款本息，每月还款金额包括本月应还的本金和利息，在借款截止日期前全部还清本息，但每月利息和本金所占的比例不同。由于每月还款额相同，显得相对简单、干脆，因此目前大部分借款人都采用这种还款方式。</p>
-<a id="more"></a>
-<h1 id="差分方程"><a href="#差分方程" class="headerlink" title="差分方程"></a>差分方程</h1><p>仍然设贷款额度为A，月利率为r，贷款期数为n，总利息为R，第t期的利息为Rt，另外用At表示第t期尚欠银行的贷款额，第t期应还本金为St，用y表示每期还款额，则第t期尚欠银行的贷款额到一个月后的本息之和为At*(1+r)，则第t+1期仍欠银行的贷款额为<br><br><img src="/2020/06/08/%E4%B8%AA%E4%BA%BA%E4%BD%8F%E6%88%BF%E8%B4%B7%E6%AC%BE%E6%A8%A1%E5%9E%8B%E4%B9%8B%E7%AD%89%E9%A2%9D%E6%9C%AC%E6%81%AF%E8%BF%98%E6%AC%BE%E6%A8%A1%E5%9E%8B/0.png" alt><br></p>
-<h1 id="模型通解"><a href="#模型通解" class="headerlink" title="模型通解"></a>模型通解</h1><p><img src="/2020/06/08/%E4%B8%AA%E4%BA%BA%E4%BD%8F%E6%88%BF%E8%B4%B7%E6%AC%BE%E6%A8%A1%E5%9E%8B%E4%B9%8B%E7%AD%89%E9%A2%9D%E6%9C%AC%E6%81%AF%E8%BF%98%E6%AC%BE%E6%A8%A1%E5%9E%8B/1.png" alt><br><br><img src="/2020/06/08/%E4%B8%AA%E4%BA%BA%E4%BD%8F%E6%88%BF%E8%B4%B7%E6%AC%BE%E6%A8%A1%E5%9E%8B%E4%B9%8B%E7%AD%89%E9%A2%9D%E6%9C%AC%E6%81%AF%E8%BF%98%E6%AC%BE%E6%A8%A1%E5%9E%8B/2.png" alt><br><br><img src="/2020/06/08/%E4%B8%AA%E4%BA%BA%E4%BD%8F%E6%88%BF%E8%B4%B7%E6%AC%BE%E6%A8%A1%E5%9E%8B%E4%B9%8B%E7%AD%89%E9%A2%9D%E6%9C%AC%E6%81%AF%E8%BF%98%E6%AC%BE%E6%A8%A1%E5%9E%8B/3.png" alt><br><br><img src="/2020/06/08/%E4%B8%AA%E4%BA%BA%E4%BD%8F%E6%88%BF%E8%B4%B7%E6%AC%BE%E6%A8%A1%E5%9E%8B%E4%B9%8B%E7%AD%89%E9%A2%9D%E6%9C%AC%E6%81%AF%E8%BF%98%E6%AC%BE%E6%A8%A1%E5%9E%8B/4.png" alt><br></p>
-<h1 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h1><p>按照银行现行制度规定，等额本息还款法以复利方式计息，即所谓的“利滚利”，且银行在每月的还款额中，是先收取利息后收取本金的。等额本息法的特点是在整个还款期内，每个月的还款额保持不变（遇调整利率除外），优点在于借款人可以准确掌握每月的还款额，容易记忆，省去许多麻烦。</p>
-]]></content>
-      <categories>
-        <category>数学建模</category>
-      </categories>
-      <tags>
-        <tag>matlab</tag>
-        <tag>差分方程模型</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>MATLAB优化工具箱linprog解线性规划</title>
-    <url>/2020/06/10/MATLAB%E4%BC%98%E5%8C%96%E5%B7%A5%E5%85%B7%E7%AE%B1linprog%E8%A7%A3%E7%BA%BF%E6%80%A7%E8%A7%84%E5%88%92/</url>
-    <content><![CDATA[<p>使用linprog求解线性规划</p>
-<a id="more"></a>
-<h1 id="基本模型"><a class="markdownIt-Anchor" href="#基本模型"></a> 基本模型</h1>
-<h2 id="模型1"><a class="markdownIt-Anchor" href="#模型1"></a> 模型1</h2>
-<p>模型：</p>
-<p class="katex-block"><span class="katex-display"><span class="katex"><span class="katex-mathml"><math><semantics><mtable rowspacing="0.24999999999999992em" columnalign="right left" columnspacing="0em"><mtr><mtd><mstyle scriptlevel="0" displaystyle="true"><mrow></mrow></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="true"><mrow><mrow></mrow><mi>m</mi><mi>i</mi><mi>n</mi><mi>z</mi><mo>=</mo><mi>c</mi><mi>X</mi></mrow></mstyle></mtd></mtr><mtr><mtd><mstyle scriptlevel="0" displaystyle="true"><mrow></mrow></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="true"><mrow><mrow></mrow><mi>s</mi><mi mathvariant="normal">.</mi><mi>t</mi><mi mathvariant="normal">.</mi><mspace width="1em"><mi>A</mi><mi>X</mi><mo>≤</mo><mi>b</mi></mspace></mrow></mstyle></mtd></mtr></mtable><annotation encoding="application/x-tex">\begin{aligned}
-&amp;min z=cX \\
-&amp;s.t. \quad AX \le b
-\end{aligned}
-</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:3.0000000000000004em;vertical-align:-1.2500000000000002em;"></span><span class="mord"><span class="mtable"><span class="col-align-r"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.7500000000000002em;"><span style="top:-3.75em;"><span class="pstrut" style="height:2.84em;"></span><span class="mord"></span></span><span style="top:-2.25em;"><span class="pstrut" style="height:2.84em;"></span><span class="mord"></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:1.2500000000000002em;"><span></span></span></span></span></span><span class="col-align-l"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.7500000000000002em;"><span style="top:-3.91em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord"></span><span class="mord mathdefault">m</span><span class="mord mathdefault">i</span><span class="mord mathdefault">n</span><span class="mord mathdefault" style="margin-right:0.04398em;">z</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mord mathdefault">c</span><span class="mord mathdefault" style="margin-right:0.07847em;">X</span></span></span><span style="top:-2.41em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord"></span><span class="mord mathdefault">s</span><span class="mord">.</span><span class="mord mathdefault">t</span><span class="mord">.</span><span class="mspace" style="margin-right:1em;"></span><span class="mord mathdefault">A</span><span class="mord mathdefault" style="margin-right:0.07847em;">X</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">≤</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mord mathdefault">b</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:1.2500000000000002em;"><span></span></span></span></span></span></span></span></span></span></span></span></p>
-<p>命令：</p>
-<p class="katex-block"><span class="katex-display"><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>x</mi><mo>=</mo><mi>l</mi><mi>i</mi><mi>n</mi><mi>p</mi><mi>r</mi><mi>o</mi><mi>g</mi><mo stretchy="false">(</mo><mi>c</mi><mo separator="true">,</mo><mi>A</mi><mo separator="true">,</mo><mi>b</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">x=linprog(c, A, b) 
-</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault">x</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.01968em;">l</span><span class="mord mathdefault">i</span><span class="mord mathdefault">n</span><span class="mord mathdefault">p</span><span class="mord mathdefault" style="margin-right:0.02778em;">r</span><span class="mord mathdefault">o</span><span class="mord mathdefault" style="margin-right:0.03588em;">g</span><span class="mopen">(</span><span class="mord mathdefault">c</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault">A</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault">b</span><span class="mclose">)</span></span></span></span></span></p>
-<h2 id="模型2"><a class="markdownIt-Anchor" href="#模型2"></a> 模型2</h2>
-<p>模型：</p>
-<p class="katex-block"><span class="katex-display"><span class="katex"><span class="katex-mathml"><math><semantics><mtable rowspacing="0.24999999999999992em" columnalign="right left" columnspacing="0em"><mtr><mtd><mstyle scriptlevel="0" displaystyle="true"><mrow></mrow></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="true"><mrow><mrow></mrow><mi>m</mi><mi>i</mi><mi>n</mi><mi>z</mi><mo>=</mo><mi>c</mi><mi>X</mi></mrow></mstyle></mtd></mtr><mtr><mtd><mstyle scriptlevel="0" displaystyle="true"><mrow></mrow></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="true"><mrow><mrow></mrow><mi>s</mi><mi mathvariant="normal">.</mi><mi>t</mi><mi mathvariant="normal">.</mi><mspace width="1em"><mi>A</mi><mi>X</mi><mo>≤</mo><mi>b</mi></mspace></mrow></mstyle></mtd></mtr><mtr><mtd><mstyle scriptlevel="0" displaystyle="true"><mrow></mrow></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="true"><mrow><mrow></mrow><mspace width="1em"><mspace width="1em"><mi>A</mi><mi>e</mi><mi>q</mi><mo>∙</mo><mi>X</mi><mo>=</mo><mi>b</mi><mi>e</mi><mi>q</mi></mspace></mspace></mrow></mstyle></mtd></mtr></mtable><annotation encoding="application/x-tex">\begin{aligned}
-&amp;min z=cX \\
-&amp;s.t. \quad AX \le b \\
-&amp;\quad\quad Aeq \bullet X = beq
-\end{aligned}
-</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:4.500000000000002em;vertical-align:-2.000000000000001em;"></span><span class="mord"><span class="mtable"><span class="col-align-r"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:2.5000000000000004em;"><span style="top:-4.5em;"><span class="pstrut" style="height:2.84em;"></span><span class="mord"></span></span><span style="top:-3em;"><span class="pstrut" style="height:2.84em;"></span><span class="mord"></span></span><span style="top:-1.4999999999999991em;"><span class="pstrut" style="height:2.84em;"></span><span class="mord"></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:2.000000000000001em;"><span></span></span></span></span></span><span class="col-align-l"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:2.5000000000000004em;"><span style="top:-4.66em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord"></span><span class="mord mathdefault">m</span><span class="mord mathdefault">i</span><span class="mord mathdefault">n</span><span class="mord mathdefault" style="margin-right:0.04398em;">z</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mord mathdefault">c</span><span class="mord mathdefault" style="margin-right:0.07847em;">X</span></span></span><span style="top:-3.16em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord"></span><span class="mord mathdefault">s</span><span class="mord">.</span><span class="mord mathdefault">t</span><span class="mord">.</span><span class="mspace" style="margin-right:1em;"></span><span class="mord mathdefault">A</span><span class="mord mathdefault" style="margin-right:0.07847em;">X</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">≤</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mord mathdefault">b</span></span></span><span style="top:-1.6599999999999993em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord"></span><span class="mspace" style="margin-right:1em;"></span><span class="mspace" style="margin-right:1em;"></span><span class="mord mathdefault">A</span><span class="mord mathdefault">e</span><span class="mord mathdefault" style="margin-right:0.03588em;">q</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">∙</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mord mathdefault" style="margin-right:0.07847em;">X</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mord mathdefault">b</span><span class="mord mathdefault">e</span><span class="mord mathdefault" style="margin-right:0.03588em;">q</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:2.000000000000001em;"><span></span></span></span></span></span></span></span></span></span></span></span></p>
-<p>命令</p>
-<p class="katex-block"><span class="katex-display"><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>x</mi><mo>=</mo><mi>l</mi><mi>i</mi><mi>n</mi><mi>p</mi><mi>r</mi><mi>o</mi><mi>g</mi><mo stretchy="false">(</mo><mi>c</mi><mo separator="true">,</mo><mi>A</mi><mo separator="true">,</mo><mi>b</mi><mo separator="true">,</mo><mi>A</mi><mi>e</mi><mi>q</mi><mo separator="true">,</mo><mi>b</mi><mi>e</mi><mi>q</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">x=linprog(c, A, b, Aeq, beq) 
-</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault">x</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.01968em;">l</span><span class="mord mathdefault">i</span><span class="mord mathdefault">n</span><span class="mord mathdefault">p</span><span class="mord mathdefault" style="margin-right:0.02778em;">r</span><span class="mord mathdefault">o</span><span class="mord mathdefault" style="margin-right:0.03588em;">g</span><span class="mopen">(</span><span class="mord mathdefault">c</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault">A</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault">b</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault">A</span><span class="mord mathdefault">e</span><span class="mord mathdefault" style="margin-right:0.03588em;">q</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault">b</span><span class="mord mathdefault">e</span><span class="mord mathdefault" style="margin-right:0.03588em;">q</span><span class="mclose">)</span></span></span></span></span></p>
-<p>注意：若没有不等式<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>A</mi><mi>X</mi><mo>≤</mo><mi>b</mi></mrow><annotation encoding="application/x-tex">AX \le b</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8193em;vertical-align:-0.13597em;"></span><span class="mord mathdefault">A</span><span class="mord mathdefault" style="margin-right:0.07847em;">X</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">≤</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.69444em;vertical-align:0em;"></span><span class="mord mathdefault">b</span></span></span></span>存在,则<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>A</mi><mo>=</mo><mo stretchy="false">[</mo><mtext> </mtext><mo stretchy="false">]</mo><mo separator="true">,</mo><mi>b</mi><mo>=</mo><mo stretchy="false">[</mo><mtext> </mtext><mo stretchy="false">]</mo></mrow><annotation encoding="application/x-tex">A=[\ ],b=[\ ]</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathdefault">A</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">[</span><span class="mspace"> </span><span class="mclose">]</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault">b</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">[</span><span class="mspace"> </span><span class="mclose">]</span></span></span></span></p>
-<h2 id="模型3"><a class="markdownIt-Anchor" href="#模型3"></a> 模型3</h2>
-<p>模型：</p>
-<p class="katex-block"><span class="katex-display"><span class="katex"><span class="katex-mathml"><math><semantics><mtable rowspacing="0.24999999999999992em" columnalign="right left" columnspacing="0em"><mtr><mtd><mstyle scriptlevel="0" displaystyle="true"><mrow></mrow></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="true"><mrow><mrow></mrow><mi>m</mi><mi>i</mi><mi>n</mi><mi>z</mi><mo>=</mo><mi>c</mi><mi>X</mi></mrow></mstyle></mtd></mtr><mtr><mtd><mstyle scriptlevel="0" displaystyle="true"><mrow></mrow></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="true"><mrow><mrow></mrow><mi>s</mi><mi mathvariant="normal">.</mi><mi>t</mi><mi mathvariant="normal">.</mi><mspace width="1em"><mi>A</mi><mi>X</mi><mo>≤</mo><mi>b</mi></mspace></mrow></mstyle></mtd></mtr><mtr><mtd><mstyle scriptlevel="0" displaystyle="true"><mrow></mrow></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="true"><mrow><mrow></mrow><mspace width="1em"><mspace width="1em"><mspace width="1em"><mi>A</mi><mi>e</mi><mi>q</mi><mo>∙</mo><mi>X</mi><mo>=</mo><mi>b</mi><mi>e</mi><mi>q</mi></mspace></mspace></mspace></mrow></mstyle></mtd></mtr><mtr><mtd><mstyle scriptlevel="0" displaystyle="true"><mrow></mrow></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="true"><mrow><mrow></mrow><mi>V</mi><mi>L</mi><mi>B</mi><mo>≤</mo><mi>X</mi><mo>≤</mo><mi>V</mi><mi>U</mi><mi>B</mi></mrow></mstyle></mtd></mtr></mtable><annotation encoding="application/x-tex">\begin{aligned}
-&amp;min z=cX \\
-&amp;s.t. \quad AX \le b \\
-&amp;\quad\quad\quad Aeq \bullet X = beq \\
-&amp;VLB \le X \le VUB
-\end{aligned}
-</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:6em;vertical-align:-2.7500000000000004em;"></span><span class="mord"><span class="mtable"><span class="col-align-r"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:3.25em;"><span style="top:-5.25em;"><span class="pstrut" style="height:2.84em;"></span><span class="mord"></span></span><span style="top:-3.75em;"><span class="pstrut" style="height:2.84em;"></span><span class="mord"></span></span><span style="top:-2.249999999999999em;"><span class="pstrut" style="height:2.84em;"></span><span class="mord"></span></span><span style="top:-0.7499999999999996em;"><span class="pstrut" style="height:2.84em;"></span><span class="mord"></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:2.7500000000000004em;"><span></span></span></span></span></span><span class="col-align-l"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:3.25em;"><span style="top:-5.41em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord"></span><span class="mord mathdefault">m</span><span class="mord mathdefault">i</span><span class="mord mathdefault">n</span><span class="mord mathdefault" style="margin-right:0.04398em;">z</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mord mathdefault">c</span><span class="mord mathdefault" style="margin-right:0.07847em;">X</span></span></span><span style="top:-3.91em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord"></span><span class="mord mathdefault">s</span><span class="mord">.</span><span class="mord mathdefault">t</span><span class="mord">.</span><span class="mspace" style="margin-right:1em;"></span><span class="mord mathdefault">A</span><span class="mord mathdefault" style="margin-right:0.07847em;">X</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">≤</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mord mathdefault">b</span></span></span><span style="top:-2.4099999999999993em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord"></span><span class="mspace" style="margin-right:1em;"></span><span class="mspace" style="margin-right:1em;"></span><span class="mspace" style="margin-right:1em;"></span><span class="mord mathdefault">A</span><span class="mord mathdefault">e</span><span class="mord mathdefault" style="margin-right:0.03588em;">q</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">∙</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mord mathdefault" style="margin-right:0.07847em;">X</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mord mathdefault">b</span><span class="mord mathdefault">e</span><span class="mord mathdefault" style="margin-right:0.03588em;">q</span></span></span><span style="top:-0.9099999999999997em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord"></span><span class="mord mathdefault" style="margin-right:0.22222em;">V</span><span class="mord mathdefault">L</span><span class="mord mathdefault" style="margin-right:0.05017em;">B</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">≤</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mord mathdefault" style="margin-right:0.07847em;">X</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">≤</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mord mathdefault" style="margin-right:0.22222em;">V</span><span class="mord mathdefault" style="margin-right:0.10903em;">U</span><span class="mord mathdefault" style="margin-right:0.05017em;">B</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:2.7500000000000004em;"><span></span></span></span></span></span></span></span></span></span></span></span></p>
-<p>命令:</p>
-<p class="katex-block"><span class="katex-display"><span class="katex"><span class="katex-mathml"><math><semantics><mtable rowspacing="0.24999999999999992em" columnalign="right left" columnspacing="0em"><mtr><mtd><mstyle scriptlevel="0" displaystyle="true"><mrow></mrow></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="true"><mrow><mrow></mrow><mo stretchy="false">[</mo><mn>1</mn><mo stretchy="false">]</mo><mtext> </mtext><mi>x</mi><mtext> </mtext><mo>=</mo><mi>l</mi><mi>i</mi><mi>n</mi><mi>p</mi><mi>r</mi><mi>o</mi><mi>g</mi><mo stretchy="false">(</mo><mi>c</mi><mo separator="true">,</mo><mi>A</mi><mo separator="true">,</mo><mi>b</mi><mo separator="true">,</mo><mi>A</mi><mi>e</mi><mi>q</mi><mo separator="true">,</mo><mi>b</mi><mi>e</mi><mi>q</mi><mo separator="true">,</mo><mi>V</mi><mi>L</mi><mi>B</mi><mo separator="true">,</mo><mi>V</mi><mi>U</mi><mi>B</mi><mo stretchy="false">)</mo></mrow></mstyle></mtd></mtr><mtr><mtd><mstyle scriptlevel="0" displaystyle="true"><mrow></mrow></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="true"><mrow><mrow></mrow><mo stretchy="false">[</mo><mn>2</mn><mo stretchy="false">]</mo><mtext> </mtext><mi>x</mi><mtext> </mtext><mo>=</mo><mi>l</mi><mi>i</mi><mi>n</mi><mi>p</mi><mi>r</mi><mi>o</mi><mi>g</mi><mo stretchy="false">(</mo><mi>c</mi><mo separator="true">,</mo><mi>A</mi><mo separator="true">,</mo><mi>b</mi><mo separator="true">,</mo><mi>A</mi><mi>e</mi><mi>q</mi><mo separator="true">,</mo><mi>b</mi><mi>e</mi><mi>q</mi><mo separator="true">,</mo><mi>V</mi><mi>L</mi><mi>B</mi><mo separator="true">,</mo><mi>V</mi><mi>U</mi><mi>B</mi><mo separator="true">,</mo><msub><mi>X</mi><mn>0</mn></msub><mo stretchy="false">)</mo></mrow></mstyle></mtd></mtr></mtable><annotation encoding="application/x-tex">\begin{aligned} 
-&amp;[1]\ x\ =linprog(c, A, b, Aeq, beq, VLB, VUB) \\
-&amp;[2]\ x\ =linprog(c, A, b, Aeq, beq, VLB, VUB, X_0)
-\end{aligned}
-</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:3.0000000000000004em;vertical-align:-1.2500000000000002em;"></span><span class="mord"><span class="mtable"><span class="col-align-r"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.7500000000000002em;"><span style="top:-3.75em;"><span class="pstrut" style="height:2.84em;"></span><span class="mord"></span></span><span style="top:-2.25em;"><span class="pstrut" style="height:2.84em;"></span><span class="mord"></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:1.2500000000000002em;"><span></span></span></span></span></span><span class="col-align-l"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.7500000000000002em;"><span style="top:-3.91em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord"></span><span class="mopen">[</span><span class="mord">1</span><span class="mclose">]</span><span class="mspace"> </span><span class="mord mathdefault">x</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mspace"> </span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mord mathdefault" style="margin-right:0.01968em;">l</span><span class="mord mathdefault">i</span><span class="mord mathdefault">n</span><span class="mord mathdefault">p</span><span class="mord mathdefault" style="margin-right:0.02778em;">r</span><span class="mord mathdefault">o</span><span class="mord mathdefault" style="margin-right:0.03588em;">g</span><span class="mopen">(</span><span class="mord mathdefault">c</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault">A</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault">b</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault">A</span><span class="mord mathdefault">e</span><span class="mord mathdefault" style="margin-right:0.03588em;">q</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault">b</span><span class="mord mathdefault">e</span><span class="mord mathdefault" style="margin-right:0.03588em;">q</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault" style="margin-right:0.22222em;">V</span><span class="mord mathdefault">L</span><span class="mord mathdefault" style="margin-right:0.05017em;">B</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault" style="margin-right:0.22222em;">V</span><span class="mord mathdefault" style="margin-right:0.10903em;">U</span><span class="mord mathdefault" style="margin-right:0.05017em;">B</span><span class="mclose">)</span></span></span><span style="top:-2.41em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord"></span><span class="mopen">[</span><span class="mord">2</span><span class="mclose">]</span><span class="mspace"> </span><span class="mord mathdefault">x</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mspace"> </span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mord mathdefault" style="margin-right:0.01968em;">l</span><span class="mord mathdefault">i</span><span class="mord mathdefault">n</span><span class="mord mathdefault">p</span><span class="mord mathdefault" style="margin-right:0.02778em;">r</span><span class="mord mathdefault">o</span><span class="mord mathdefault" style="margin-right:0.03588em;">g</span><span class="mopen">(</span><span class="mord mathdefault">c</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault">A</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault">b</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault">A</span><span class="mord mathdefault">e</span><span class="mord mathdefault" style="margin-right:0.03588em;">q</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault">b</span><span class="mord mathdefault">e</span><span class="mord mathdefault" style="margin-right:0.03588em;">q</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault" style="margin-right:0.22222em;">V</span><span class="mord mathdefault">L</span><span class="mord mathdefault" style="margin-right:0.05017em;">B</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault" style="margin-right:0.22222em;">V</span><span class="mord mathdefault" style="margin-right:0.10903em;">U</span><span class="mord mathdefault" style="margin-right:0.05017em;">B</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.07847em;">X</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:-0.07847em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">0</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mclose">)</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:1.2500000000000002em;"><span></span></span></span></span></span></span></span></span></span></span></span></p>
-<p>注意：<br>
-[1]若没有等式约束：<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>A</mi><mi>e</mi><mi>q</mi><mo>∙</mo><mi>X</mi><mo>=</mo><mi>b</mi><mi>e</mi><mi>q</mi></mrow><annotation encoding="application/x-tex">Aeq \bullet X = beq</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8777699999999999em;vertical-align:-0.19444em;"></span><span class="mord mathdefault">A</span><span class="mord mathdefault">e</span><span class="mord mathdefault" style="margin-right:0.03588em;">q</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">∙</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.07847em;">X</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.8888799999999999em;vertical-align:-0.19444em;"></span><span class="mord mathdefault">b</span><span class="mord mathdefault">e</span><span class="mord mathdefault" style="margin-right:0.03588em;">q</span></span></span></span>,则令<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>A</mi><mi>e</mi><mi>q</mi><mo>=</mo><mo stretchy="false">[</mo><mtext> </mtext><mo stretchy="false">]</mo><mo separator="true">,</mo><mi>b</mi><mi>e</mi><mi>q</mi><mo>=</mo><mo stretchy="false">[</mo><mtext> </mtext><mo stretchy="false">]</mo></mrow><annotation encoding="application/x-tex">Aeq=[\ ],beq=[\ ]</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8777699999999999em;vertical-align:-0.19444em;"></span><span class="mord mathdefault">A</span><span class="mord mathdefault">e</span><span class="mord mathdefault" style="margin-right:0.03588em;">q</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">[</span><span class="mspace"> </span><span class="mclose">]</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault">b</span><span class="mord mathdefault">e</span><span class="mord mathdefault" style="margin-right:0.03588em;">q</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">[</span><span class="mspace"> </span><span class="mclose">]</span></span></span></span>.<br>
-[2]其中<span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>X</mi><mn>0</mn></msub></mrow><annotation encoding="application/x-tex">X_0</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.83333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.07847em;">X</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:-0.07847em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">0</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>表示初始点</p>
-<h2 id="基础命令"><a class="markdownIt-Anchor" href="#基础命令"></a> 基础命令</h2>
-<p>命令：</p>
-<p class="katex-block"><span class="katex-display"><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo stretchy="false">[</mo><mi>x</mi><mo separator="true">,</mo><mi>f</mi><mi>v</mi><mi>a</mi><mi>l</mi><mo stretchy="false">]</mo><mo>=</mo><mi>l</mi><mi>i</mi><mi>n</mi><mi>p</mi><mi>r</mi><mi>o</mi><mi>g</mi><mo stretchy="false">(</mo><mi mathvariant="normal">.</mi><mi mathvariant="normal">.</mi><mi mathvariant="normal">.</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">[x,fval]=linprog(...)
-</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">[</span><span class="mord mathdefault">x</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault" style="margin-right:0.10764em;">f</span><span class="mord mathdefault" style="margin-right:0.03588em;">v</span><span class="mord mathdefault">a</span><span class="mord mathdefault" style="margin-right:0.01968em;">l</span><span class="mclose">]</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.01968em;">l</span><span class="mord mathdefault">i</span><span class="mord mathdefault">n</span><span class="mord mathdefault">p</span><span class="mord mathdefault" style="margin-right:0.02778em;">r</span><span class="mord mathdefault">o</span><span class="mord mathdefault" style="margin-right:0.03588em;">g</span><span class="mopen">(</span><span class="mord">.</span><span class="mord">.</span><span class="mord">.</span><span class="mclose">)</span></span></span></span></span></p>
-<p>返回最优解x及x处的目标函数值fval.</p>
-<h1 id="例子"><a class="markdownIt-Anchor" href="#例子"></a> 例子</h1>
-<h2 id="题目"><a class="markdownIt-Anchor" href="#题目"></a> 题目</h2>
-<div style="width:40%;margin:auto"><img src="/2020/06/10/MATLAB%E4%BC%98%E5%8C%96%E5%B7%A5%E5%85%B7%E7%AE%B1linprog%E8%A7%A3%E7%BA%BF%E6%80%A7%E8%A7%84%E5%88%92/0.png" class></div>
-<h2 id="代码"><a class="markdownIt-Anchor" href="#代码"></a> 代码</h2>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">c &#x3D; [-2, -1, 1];</span><br><span class="line">A &#x3D; [1, 4, -1;</span><br><span class="line">    2, -2, 1];</span><br><span class="line">b &#x3D; [4, 12];</span><br><span class="line">Aeq &#x3D; [1, 1, 2];</span><br><span class="line">beq &#x3D; [6];</span><br><span class="line">VLB &#x3D; [0, 0, -inf];</span><br><span class="line">VUB &#x3D; [inf, inf, 5];</span><br><span class="line"></span><br><span class="line">[x, fval] &#x3D; linprog(c, A, b, Aeq, beq, VLB, VUB)</span><br></pre></td></tr></table></figure>
-<h2 id="解"><a class="markdownIt-Anchor" href="#解"></a> 解</h2>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">x&#x3D;[4.6667, 0.0000, 0.6667]</span><br><span class="line">fval&#x3D;-8.6667</span><br></pre></td></tr></table></figure>]]></content>
-      <categories>
-        <category>数学建模</category>
-      </categories>
-      <tags>
-        <tag>matlab</tag>
-        <tag>线性规划</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>MATLAB优化工具箱intlinprog解整数线性规划</title>
-    <url>/2020/06/10/MATLAB%E4%BC%98%E5%8C%96%E5%B7%A5%E5%85%B7%E7%AE%B1intlinprog%E8%A7%A3%E6%95%B4%E6%95%B0%E7%BA%BF%E6%80%A7%E8%A7%84%E5%88%92/</url>
-    <content><![CDATA[<p>intlinprog是matlab中用于求解混合整数线性规划(Mixed-integer linear programming)的一个函数，用法基本和linprog差不多</p>
-<a id="more"></a>
-<h1 id="基本模型"><a class="markdownIt-Anchor" href="#基本模型"></a> 基本模型</h1>
-<p class="katex-block"><span class="katex-display"><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mtable rowspacing="0.24999999999999992em" columnalign="right left" columnspacing="0em"><mtr><mtd><mstyle scriptlevel="0" displaystyle="true"><mrow></mrow></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="true"><mrow><mrow></mrow><mspace width="2em"><mi>m</mi><mi>i</mi><mi>n</mi><mtext> </mtext><msup><mi>f</mi><mi>T</mi></msup><mi>x</mi></mspace></mrow></mstyle></mtd></mtr><mtr><mtd><mstyle scriptlevel="0" displaystyle="true"><mrow></mrow></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="true"><mrow><mrow></mrow><mi>s</mi><mi mathvariant="normal">.</mi><mi>t</mi><mi mathvariant="normal">.</mi><mrow><mo fence="true">{</mo><mtable rowspacing="0.3599999999999999em" columnalign="left left" columnspacing="1em"><mtr><mtd><mstyle scriptlevel="0" displaystyle="false"><mrow><mi>x</mi><mo stretchy="false">(</mo><mi>i</mi><mi>n</mi><mi>t</mi><mi>c</mi><mi>o</mi><mi>n</mi><mo stretchy="false">)</mo><mi>a</mi><mi>r</mi><mi>e</mi><mi>i</mi><mi>n</mi><mi>t</mi><mi>e</mi><mi>g</mi><mi>e</mi><mi>r</mi><mi>s</mi></mrow></mstyle></mtd></mtr><mtr><mtd><mstyle scriptlevel="0" displaystyle="false"><mrow><mi>A</mi><mo>⋅</mo><mi>x</mi><mo>≤</mo><mi>b</mi></mrow></mstyle></mtd></mtr><mtr><mtd><mstyle scriptlevel="0" displaystyle="false"><mrow><mi>A</mi><mi>e</mi><mi>q</mi><mo>⋅</mo><mi>x</mi><mo>=</mo><mi>b</mi><mi>e</mi><mi>q</mi></mrow></mstyle></mtd></mtr><mtr><mtd><mstyle scriptlevel="0" displaystyle="false"><mrow><mi>l</mi><mi>b</mi><mo>≤</mo><mi>x</mi><mo>≤</mo><mi>u</mi><mi>b</mi></mrow></mstyle></mtd></mtr></mtable></mrow></mrow></mstyle></mtd></mtr></mtable><mspace linebreak="newline"></mspace><mi>f</mi><mo separator="true">,</mo><mi>x</mi><mo separator="true">,</mo><mi>b</mi><mo separator="true">,</mo><mi>b</mi><mi>e</mi><mi>q</mi><mo separator="true">,</mo><mi>l</mi><mi>b</mi><mo separator="true">,</mo><mi>u</mi><mi>b</mi><mo separator="true">,</mo><mi>i</mi><mi>n</mi><mi>t</mi><mi>c</mi><mi>o</mi><mi>n</mi><mi mathvariant="normal">是</mi><mi mathvariant="normal">向</mi><mi mathvariant="normal">量</mi><mo separator="true">;</mo><mi>A</mi><mi mathvariant="normal">和</mi><mi>A</mi><mi>e</mi><mi>q</mi><mi mathvariant="normal">是</mi><mi mathvariant="normal">矩</mi><mi mathvariant="normal">阵</mi></mrow><annotation encoding="application/x-tex">\begin{aligned}
-&amp;\qquad min \ f^Tx \\
-&amp;s.t.
-\begin{cases}
-x(intcon) are integers \\
-A \cdot x \le b \\
-Aeq \cdot x = beq \\
-lb \le x \le ub
-\end{cases}
-\end{aligned} \\
-f,x,b,beq,lb,ub,intcon是向量;A和Aeq是矩阵
-</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:7.611331em;vertical-align:-3.5556655em;"></span><span class="mord"><span class="mtable"><span class="col-align-r"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:4.0556655em;"><span style="top:-8.294334500000001em;"><span class="pstrut" style="height:5.130000000000001em;"></span><span class="mord"></span></span><span style="top:-4.504334500000001em;"><span class="pstrut" style="height:5.130000000000001em;"></span><span class="mord"></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:3.5556655em;"><span></span></span></span></span></span><span class="col-align-l"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:4.0556655em;"><span style="top:-8.294334500000001em;"><span class="pstrut" style="height:5.130000000000001em;"></span><span class="mord"><span class="mord"></span><span class="mspace" style="margin-right:2em;"></span><span class="mord mathdefault">m</span><span class="mord mathdefault">i</span><span class="mord mathdefault">n</span><span class="mspace"> </span><span class="mord"><span class="mord mathdefault" style="margin-right:0.10764em;">f</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8913309999999999em;"><span style="top:-3.113em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight" style="margin-right:0.13889em;">T</span></span></span></span></span></span></span></span><span class="mord mathdefault">x</span></span></span><span style="top:-4.504334500000001em;"><span class="pstrut" style="height:5.130000000000001em;"></span><span class="mord"><span class="mord"></span><span class="mord mathdefault">s</span><span class="mord">.</span><span class="mord mathdefault">t</span><span class="mord">.</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="minner"><span class="mopen"><span class="delimsizing mult"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:2.9500200000000003em;"><span style="top:-1.59999em;"><span class="pstrut" style="height:3.15em;"></span><span class="delimsizinginner delim-size4"><span>⎩</span></span></span><span style="top:-1.59999em;"><span class="pstrut" style="height:3.15em;"></span><span class="delimsizinginner delim-size4"><span>⎪</span></span></span><span style="top:-1.89999em;"><span class="pstrut" style="height:3.15em;"></span><span class="delimsizinginner delim-size4"><span>⎪</span></span></span><span style="top:-2.19999em;"><span class="pstrut" style="height:3.15em;"></span><span class="delimsizinginner delim-size4"><span>⎪</span></span></span><span style="top:-3.1500100000000004em;"><span class="pstrut" style="height:3.15em;"></span><span class="delimsizinginner delim-size4"><span>⎨</span></span></span><span style="top:-4.30001em;"><span class="pstrut" style="height:3.15em;"></span><span class="delimsizinginner delim-size4"><span>⎪</span></span></span><span style="top:-4.60001em;"><span class="pstrut" style="height:3.15em;"></span><span class="delimsizinginner delim-size4"><span>⎪</span></span></span><span style="top:-4.90001em;"><span class="pstrut" style="height:3.15em;"></span><span class="delimsizinginner delim-size4"><span>⎪</span></span></span><span style="top:-5.20002em;"><span class="pstrut" style="height:3.15em;"></span><span class="delimsizinginner delim-size4"><span>⎧</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:2.45002em;"><span></span></span></span></span></span></span><span class="mord"><span class="mtable"><span class="col-align-l"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:3.1300000000000003em;"><span style="top:-5.130000000000001em;"><span class="pstrut" style="height:3.008em;"></span><span class="mord"><span class="mord mathdefault">x</span><span class="mopen">(</span><span class="mord mathdefault">i</span><span class="mord mathdefault">n</span><span class="mord mathdefault">t</span><span class="mord mathdefault">c</span><span class="mord mathdefault">o</span><span class="mord mathdefault">n</span><span class="mclose">)</span><span class="mord mathdefault">a</span><span class="mord mathdefault" style="margin-right:0.02778em;">r</span><span class="mord mathdefault">e</span><span class="mord mathdefault">i</span><span class="mord mathdefault">n</span><span class="mord mathdefault">t</span><span class="mord mathdefault">e</span><span class="mord mathdefault" style="margin-right:0.03588em;">g</span><span class="mord mathdefault">e</span><span class="mord mathdefault" style="margin-right:0.02778em;">r</span><span class="mord mathdefault">s</span></span></span><span style="top:-3.6900000000000004em;"><span class="pstrut" style="height:3.008em;"></span><span class="mord"><span class="mord mathdefault">A</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">⋅</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mord mathdefault">x</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">≤</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mord mathdefault">b</span></span></span><span style="top:-2.2500000000000004em;"><span class="pstrut" style="height:3.008em;"></span><span class="mord"><span class="mord mathdefault">A</span><span class="mord mathdefault">e</span><span class="mord mathdefault" style="margin-right:0.03588em;">q</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">⋅</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mord mathdefault">x</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mord mathdefault">b</span><span class="mord mathdefault">e</span><span class="mord mathdefault" style="margin-right:0.03588em;">q</span></span></span><span style="top:-0.8100000000000002em;"><span class="pstrut" style="height:3.008em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.01968em;">l</span><span class="mord mathdefault">b</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">≤</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mord mathdefault">x</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">≤</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mord mathdefault">u</span><span class="mord mathdefault">b</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:2.63em;"><span></span></span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:3.5556655em;"><span></span></span></span></span></span></span></span></span><span class="mspace newline"></span><span class="base"><span class="strut" style="height:0.8888799999999999em;vertical-align:-0.19444em;"></span><span class="mord mathdefault" style="margin-right:0.10764em;">f</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault">x</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault">b</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault">b</span><span class="mord mathdefault">e</span><span class="mord mathdefault" style="margin-right:0.03588em;">q</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault" style="margin-right:0.01968em;">l</span><span class="mord mathdefault">b</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault">u</span><span class="mord mathdefault">b</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault">i</span><span class="mord mathdefault">n</span><span class="mord mathdefault">t</span><span class="mord mathdefault">c</span><span class="mord mathdefault">o</span><span class="mord mathdefault">n</span><span class="mord cjk_fallback">是</span><span class="mord cjk_fallback">向</span><span class="mord cjk_fallback">量</span><span class="mpunct">;</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault">A</span><span class="mord cjk_fallback">和</span><span class="mord mathdefault">A</span><span class="mord mathdefault">e</span><span class="mord mathdefault" style="margin-right:0.03588em;">q</span><span class="mord cjk_fallback">是</span><span class="mord cjk_fallback">矩</span><span class="mord cjk_fallback">阵</span></span></span></span></span></p>
-<h1 id="命令"><a class="markdownIt-Anchor" href="#命令"></a> 命令</h1>
-<p class="katex-block"><span class="katex-display"><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>x</mi><mo>=</mo><mi>i</mi><mi>n</mi><mi>t</mi><mi>l</mi><mi>i</mi><mi>n</mi><mi>p</mi><mi>r</mi><mi>o</mi><mi>g</mi><mo stretchy="false">(</mo><mi>f</mi><mo separator="true">,</mo><mi>i</mi><mi>n</mi><mi>t</mi><mi>c</mi><mi>o</mi><mi>n</mi><mo separator="true">,</mo><mi>A</mi><mo separator="true">,</mo><mi>b</mi><mo separator="true">,</mo><mi>A</mi><mi>e</mi><mi>q</mi><mo separator="true">,</mo><mi>b</mi><mi>e</mi><mi>q</mi><mo separator="true">,</mo><mi>l</mi><mi>b</mi><mo separator="true">,</mo><mi>u</mi><mi>b</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">x=intlinprog(f,intcon,A,b,Aeq,beq,lb,ub)
-</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault">x</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault">i</span><span class="mord mathdefault">n</span><span class="mord mathdefault">t</span><span class="mord mathdefault" style="margin-right:0.01968em;">l</span><span class="mord mathdefault">i</span><span class="mord mathdefault">n</span><span class="mord mathdefault">p</span><span class="mord mathdefault" style="margin-right:0.02778em;">r</span><span class="mord mathdefault">o</span><span class="mord mathdefault" style="margin-right:0.03588em;">g</span><span class="mopen">(</span><span class="mord mathdefault" style="margin-right:0.10764em;">f</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault">i</span><span class="mord mathdefault">n</span><span class="mord mathdefault">t</span><span class="mord mathdefault">c</span><span class="mord mathdefault">o</span><span class="mord mathdefault">n</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault">A</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault">b</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault">A</span><span class="mord mathdefault">e</span><span class="mord mathdefault" style="margin-right:0.03588em;">q</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault">b</span><span class="mord mathdefault">e</span><span class="mord mathdefault" style="margin-right:0.03588em;">q</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault" style="margin-right:0.01968em;">l</span><span class="mord mathdefault">b</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault">u</span><span class="mord mathdefault">b</span><span class="mclose">)</span></span></span></span></span></p>
-<h1 id="例子"><a class="markdownIt-Anchor" href="#例子"></a> 例子</h1>
-<h2 id="题目"><a class="markdownIt-Anchor" href="#题目"></a> 题目</h2>
-<p class="katex-block"><span class="katex-display"><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>m</mi><mi>a</mi><mi>x</mi><mtext> </mtext><mi>z</mi><mo>=</mo><msub><mi>x</mi><mn>1</mn></msub><mo>+</mo><msub><mi>x</mi><mn>2</mn></msub><mspace linebreak="newline"></mspace><mi>s</mi><mi mathvariant="normal">.</mi><mi>t</mi><mi mathvariant="normal">.</mi><mrow><mo fence="true">{</mo><mtable rowspacing="0.3599999999999999em" columnalign="left left" columnspacing="1em"><mtr><mtd><mstyle scriptlevel="0" displaystyle="false"><mrow><mn>2</mn><msub><mi>x</mi><mn>1</mn></msub><mo>+</mo><msub><mi>x</mi><mn>2</mn></msub><mo>≤</mo><mn>6</mn></mrow></mstyle></mtd></mtr><mtr><mtd><mstyle scriptlevel="0" displaystyle="false"><mrow><mn>4</mn><msub><mi>x</mi><mn>1</mn></msub><mo>+</mo><mn>5</mn><msub><mi>x</mi><mn>2</mn></msub><mo>≤</mo><mn>20</mn></mrow></mstyle></mtd></mtr><mtr><mtd><mstyle scriptlevel="0" displaystyle="false"><mrow><msub><mi>x</mi><mn>1</mn></msub><mo separator="true">,</mo><msub><mi>x</mi><mn>2</mn></msub><mo>≥</mo><mn>0</mn><mo separator="true">,</mo><mi mathvariant="normal">全</mi><mi mathvariant="normal">部</mi><mi mathvariant="normal">为</mi><mi mathvariant="normal">整</mi><mi mathvariant="normal">数</mi></mrow></mstyle></mtd></mtr></mtable></mrow></mrow><annotation encoding="application/x-tex">max\ z=x_1+x_2 \\
-s.t.
-\begin{cases}
-2x_1+x_2 \le 6 \\
-4x_1+5x_2 \le 20 \\
-x_1,x_2 \ge 0,全部为整数
-\end{cases}
-</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault">m</span><span class="mord mathdefault">a</span><span class="mord mathdefault">x</span><span class="mspace"> </span><span class="mord mathdefault" style="margin-right:0.04398em;">z</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.73333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathdefault">x</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">1</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.58056em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathdefault">x</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span><span class="mspace newline"></span><span class="base"><span class="strut" style="height:4.32em;vertical-align:-1.9099999999999997em;"></span><span class="mord mathdefault">s</span><span class="mord">.</span><span class="mord mathdefault">t</span><span class="mord">.</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="minner"><span class="mopen"><span class="delimsizing mult"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:2.35002em;"><span style="top:-2.19999em;"><span class="pstrut" style="height:3.15em;"></span><span class="delimsizinginner delim-size4"><span>⎩</span></span></span><span style="top:-2.19999em;"><span class="pstrut" style="height:3.15em;"></span><span class="delimsizinginner delim-size4"><span>⎪</span></span></span><span style="top:-3.1500100000000004em;"><span class="pstrut" style="height:3.15em;"></span><span class="delimsizinginner delim-size4"><span>⎨</span></span></span><span style="top:-4.30001em;"><span class="pstrut" style="height:3.15em;"></span><span class="delimsizinginner delim-size4"><span>⎪</span></span></span><span style="top:-4.60002em;"><span class="pstrut" style="height:3.15em;"></span><span class="delimsizinginner delim-size4"><span>⎧</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:1.8500199999999998em;"><span></span></span></span></span></span></span><span class="mord"><span class="mtable"><span class="col-align-l"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:2.41em;"><span style="top:-4.41em;"><span class="pstrut" style="height:3.008em;"></span><span class="mord"><span class="mord">2</span><span class="mord"><span class="mord mathdefault">x</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">1</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mord"><span class="mord mathdefault">x</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">≤</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mord">6</span></span></span><span style="top:-2.97em;"><span class="pstrut" style="height:3.008em;"></span><span class="mord"><span class="mord">4</span><span class="mord"><span class="mord mathdefault">x</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">1</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mord">5</span><span class="mord"><span class="mord mathdefault">x</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">≤</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mord">2</span><span class="mord">0</span></span></span><span style="top:-1.5300000000000002em;"><span class="pstrut" style="height:3.008em;"></span><span class="mord"><span class="mord"><span class="mord mathdefault">x</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">1</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord"><span class="mord mathdefault">x</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">≥</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mord">0</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord cjk_fallback">全</span><span class="mord cjk_fallback">部</span><span class="mord cjk_fallback">为</span><span class="mord cjk_fallback">整</span><span class="mord cjk_fallback">数</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:1.9099999999999997em;"><span></span></span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span></span></span></span></span></p>
-<h2 id="代码"><a class="markdownIt-Anchor" href="#代码"></a> 代码</h2>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">c &#x3D; [1, 1];</span><br><span class="line">intcon &#x3D; [1, 2];</span><br><span class="line">A &#x3D; [2, 1;</span><br><span class="line">     4, 5];</span><br><span class="line">b &#x3D; [6, 20];</span><br><span class="line">Aeq &#x3D; [];</span><br><span class="line">beq &#x3D; [];</span><br><span class="line">lb &#x3D; [0 ,0];</span><br><span class="line">ub &#x3D; [];</span><br><span class="line">[x, fval] &#x3D; intlinprog(-c, intcon, A, b, Aeq, beq, lb, ub)</span><br></pre></td></tr></table></figure>
-<h2 id="结果"><a class="markdownIt-Anchor" href="#结果"></a> 结果</h2>
-<p class="katex-block"><span class="katex-display"><span class="katex"><span class="katex-mathml"><math><semantics><mtable rowspacing="0.24999999999999992em" columnalign="right left" columnspacing="0em"><mtr><mtd><mstyle scriptlevel="0" displaystyle="true"><mrow></mrow></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="true"><mrow><mrow></mrow><mi>x</mi><mo>=</mo><mo stretchy="false">[</mo><mn>2.0000</mn><mo separator="true">,</mo><mn>2.0000</mn><mo stretchy="false">]</mo></mrow></mstyle></mtd></mtr><mtr><mtd><mstyle scriptlevel="0" displaystyle="true"><mrow></mrow></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="true"><mrow><mrow></mrow><mi>f</mi><mi>v</mi><mi>a</mi><mi>l</mi><mo>=</mo><mn>4</mn></mrow></mstyle></mtd></mtr></mtable><annotation encoding="application/x-tex">\begin{aligned}
-&amp;x=[2.0000, 2.0000] \\
-&amp;fval=4
-\end{aligned}
-</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:3.0000000000000004em;vertical-align:-1.2500000000000002em;"></span><span class="mord"><span class="mtable"><span class="col-align-r"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.7500000000000002em;"><span style="top:-3.75em;"><span class="pstrut" style="height:2.84em;"></span><span class="mord"></span></span><span style="top:-2.25em;"><span class="pstrut" style="height:2.84em;"></span><span class="mord"></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:1.2500000000000002em;"><span></span></span></span></span></span><span class="col-align-l"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.7500000000000002em;"><span style="top:-3.91em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord"></span><span class="mord mathdefault">x</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mopen">[</span><span class="mord">2</span><span class="mord">.</span><span class="mord">0</span><span class="mord">0</span><span class="mord">0</span><span class="mord">0</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord">2</span><span class="mord">.</span><span class="mord">0</span><span class="mord">0</span><span class="mord">0</span><span class="mord">0</span><span class="mclose">]</span></span></span><span style="top:-2.41em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord"></span><span class="mord mathdefault" style="margin-right:0.10764em;">f</span><span class="mord mathdefault" style="margin-right:0.03588em;">v</span><span class="mord mathdefault">a</span><span class="mord mathdefault" style="margin-right:0.01968em;">l</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mord">4</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:1.2500000000000002em;"><span></span></span></span></span></span></span></span></span></span></span></span></p>
-]]></content>
-      <categories>
-        <category>数学建模</category>
-      </categories>
-      <tags>
-        <tag>matlab</tag>
-        <tag>整数线性规划</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>最短问题的Dijkstra算法模型</title>
-    <url>/2020/06/15/%E6%9C%80%E7%9F%AD%E9%97%AE%E9%A2%98%E7%9A%84Dijkstra%E7%AE%97%E6%B3%95%E6%A8%A1%E5%9E%8B/</url>
-    <content><![CDATA[<p>1959年E.W.Dijkstra提出了求网络最短路径的标号法：用给节点记标号来逐步形成起点到各点的最短路径及其距离。</p>
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"flytococktail.github.io","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="1959年E.W.Dijkstra提出了求网络最短路径的标号法：用给节点记标号来逐步形成起点到各点的最短路径及其距离。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="最短问题的Dijkstra算法模型">
+<meta property="og:url" content="https://flytococktail.github.io/2020/06/15/%E6%9C%80%E7%9F%AD%E9%97%AE%E9%A2%98%E7%9A%84Dijkstra%E7%AE%97%E6%B3%95%E6%A8%A1%E5%9E%8B/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="1959年E.W.Dijkstra提出了求网络最短路径的标号法：用给节点记标号来逐步形成起点到各点的最短路径及其距离。">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://flytococktail.github.io/2020/06/15/%E6%9C%80%E7%9F%AD%E9%97%AE%E9%A2%98%E7%9A%84Dijkstra%E7%AE%97%E6%B3%95%E6%A8%A1%E5%9E%8B/0.png">
+<meta property="og:image" content="https://flytococktail.github.io/2020/06/15/%E6%9C%80%E7%9F%AD%E9%97%AE%E9%A2%98%E7%9A%84Dijkstra%E7%AE%97%E6%B3%95%E6%A8%A1%E5%9E%8B/1.png">
+<meta property="og:image" content="https://flytococktail.github.io/2020/06/15/%E6%9C%80%E7%9F%AD%E9%97%AE%E9%A2%98%E7%9A%84Dijkstra%E7%AE%97%E6%B3%95%E6%A8%A1%E5%9E%8B/2.png">
+<meta property="og:image" content="https://flytococktail.github.io/2020/06/15/%E6%9C%80%E7%9F%AD%E9%97%AE%E9%A2%98%E7%9A%84Dijkstra%E7%AE%97%E6%B3%95%E6%A8%A1%E5%9E%8B/3.png">
+<meta property="og:image" content="https://flytococktail.github.io/2020/06/15/%E6%9C%80%E7%9F%AD%E9%97%AE%E9%A2%98%E7%9A%84Dijkstra%E7%AE%97%E6%B3%95%E6%A8%A1%E5%9E%8B/4.png">
+<meta property="og:image" content="https://flytococktail.github.io/2020/06/15/%E6%9C%80%E7%9F%AD%E9%97%AE%E9%A2%98%E7%9A%84Dijkstra%E7%AE%97%E6%B3%95%E6%A8%A1%E5%9E%8B/5.png">
+<meta property="og:image" content="https://flytococktail.github.io/2020/06/15/%E6%9C%80%E7%9F%AD%E9%97%AE%E9%A2%98%E7%9A%84Dijkstra%E7%AE%97%E6%B3%95%E6%A8%A1%E5%9E%8B/6.png">
+<meta property="article:published_time" content="2020-06-15T13:15:16.000Z">
+<meta property="article:modified_time" content="2020-06-16T07:20:22.291Z">
+<meta property="article:author" content="John Doe">
+<meta property="article:tag" content="matlab">
+<meta property="article:tag" content="图论">
+<meta property="article:tag" content="最短路问题">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://flytococktail.github.io/2020/06/15/%E6%9C%80%E7%9F%AD%E9%97%AE%E9%A2%98%E7%9A%84Dijkstra%E7%AE%97%E6%B3%95%E6%A8%A1%E5%9E%8B/0.png">
+
+<link rel="canonical" href="https://flytococktail.github.io/2020/06/15/%E6%9C%80%E7%9F%AD%E9%97%AE%E9%A2%98%E7%9A%84Dijkstra%E7%AE%97%E6%B3%95%E6%A8%A1%E5%9E%8B/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'en'
+  };
+</script>
+
+  <title>最短问题的Dijkstra算法模型 | Hexo</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Hexo</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="Searching..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://flytococktail.github.io/2020/06/15/%E6%9C%80%E7%9F%AD%E9%97%AE%E9%A2%98%E7%9A%84Dijkstra%E7%AE%97%E6%B3%95%E6%A8%A1%E5%9E%8B/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="John Doe">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          最短问题的Dijkstra算法模型
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2020-06-15 21:15:16" itemprop="dateCreated datePublished" datetime="2020-06-15T21:15:16+08:00">2020-06-15</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-06-16 15:20:22" itemprop="dateModified" datetime="2020-06-16T15:20:22+08:00">2020-06-16</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%95%B0%E5%AD%A6%E5%BB%BA%E6%A8%A1/" itemprop="url" rel="index"><span itemprop="name">数学建模</span></a>
+                </span>
+            </span>
+
+          
+            <span id="/2020/06/15/%E6%9C%80%E7%9F%AD%E9%97%AE%E9%A2%98%E7%9A%84Dijkstra%E7%AE%97%E6%B3%95%E6%A8%A1%E5%9E%8B/" class="post-meta-item leancloud_visitors" data-flag-title="最短问题的Dijkstra算法模型" title="Views">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">Views: </span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+            <span class="post-meta-item" title="Views" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">Views: </span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine: </span>
+    
+    <a title="valine" href="/2020/06/15/%E6%9C%80%E7%9F%AD%E9%97%AE%E9%A2%98%E7%9A%84Dijkstra%E7%AE%97%E6%B3%95%E6%A8%A1%E5%9E%8B/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2020/06/15/%E6%9C%80%E7%9F%AD%E9%97%AE%E9%A2%98%E7%9A%84Dijkstra%E7%AE%97%E6%B3%95%E6%A8%A1%E5%9E%8B/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>1959年E.W.Dijkstra提出了求网络最短路径的标号法：用给节点记标号来逐步形成起点到各点的最短路径及其距离。</p>
 <a id="more"></a>
 <h1 id="最短路"><a class="markdownIt-Anchor" href="#最短路"></a> 最短路</h1>
 <h2 id="概念"><a class="markdownIt-Anchor" href="#概念"></a> 概念</h2>
@@ -240,16 +325,353 @@ Step5：给边<span class="katex"><span class="katex-mathml"><math><semantics><m
 <p>(8)可以得到<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>S</mi><mo>=</mo><mo stretchy="false">{</mo><msub><mi>v</mi><mn>1</mn></msub><mo separator="true">,</mo><msub><mi>v</mi><mn>3</mn></msub><mo separator="true">,</mo><msub><mi>v</mi><mn>6</mn></msub><mo separator="true">,</mo><msub><mi>v</mi><mn>7</mn></msub><mo stretchy="false">}</mo></mrow><annotation encoding="application/x-tex">S=\{v_1,v_3,v_6,v_7\}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.05764em;">S</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">{</span><span class="mord"><span class="mord mathdefault" style="margin-right:0.03588em;">v</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:-0.03588em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">1</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.03588em;">v</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:-0.03588em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">3</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.03588em;">v</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:-0.03588em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">6</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.03588em;">v</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:-0.03588em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">7</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mclose">}</span></span></span></span>,最短路径长为41。</p>
 <h2 id="代码"><a class="markdownIt-Anchor" href="#代码"></a> 代码</h2>
 <p>shorta.m</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">function [d Q] &#x3D; shorta(T)</span><br><span class="line"></span><br><span class="line">pp(1:length(T)) &#x3D; 0;</span><br><span class="line">pp(1) &#x3D; 1;</span><br><span class="line">Q &#x3D; 1;</span><br><span class="line">M &#x3D; max(T(:));</span><br><span class="line">d(1:length(T)) &#x3D; M;</span><br><span class="line">d(1) &#x3D; 0;</span><br><span class="line">K &#x3D; 1;</span><br><span class="line">while sum(pp)&lt;length(T)</span><br><span class="line">    tt &#x3D; find(pp&#x3D;&#x3D;0);   %找出未标记的点</span><br><span class="line">    d(tt) &#x3D; min(d(tt),d(K)+T(K,tt));</span><br><span class="line">    ttt &#x3D; find(d(tt)&#x3D;&#x3D;min(d(tt)));</span><br><span class="line">    K &#x3D; tt(ttt(1));</span><br><span class="line">    pp(K) &#x3D; 1;</span><br><span class="line">    Q &#x3D; [Q,K];</span><br><span class="line">end</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">function [d Q] &#x3D; shorta(T)</span><br><span class="line"></span><br><span class="line">pp(1:length(T)) &#x3D; 0;</span><br><span class="line">pp(1) &#x3D; 1;</span><br><span class="line">Q &#x3D; 1;</span><br><span class="line">M &#x3D; max(T(:));</span><br><span class="line">d(1:length(T)) &#x3D; M;</span><br><span class="line">d(1) &#x3D; 0;</span><br><span class="line">K &#x3D; 1;</span><br><span class="line">while sum(pp)&lt;length(T)</span><br><span class="line">    tt &#x3D; find(pp&#x3D;&#x3D;0);   %找出未标记的点</span><br><span class="line">    d(tt) &#x3D; min(d(tt),d(K)+T(K,tt));</span><br><span class="line">    ttt &#x3D; find(d(tt)&#x3D;&#x3D;min(d(tt)));</span><br><span class="line">    K &#x3D; tt(ttt(1));</span><br><span class="line">    pp(K) &#x3D; 1;</span><br><span class="line">    Q &#x3D; [Q,K];</span><br><span class="line">end</span><br></pre></td></tr></table></figure>
 <p>main.m</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">T&#x3D;[0,20,15,inf,inf,inf,inf;</span><br><span class="line">   inf,0,inf,8,24,inf,inf;</span><br><span class="line">   inf,inf,0,10,inf,6,inf;</span><br><span class="line">   inf,inf,inf,0,10,8,inf;</span><br><span class="line">   inf,inf,inf,inf,0,inf,11;</span><br><span class="line">   inf,inf,inf,inf,inf,0,20];</span><br><span class="line">[d Q]&#x3D;shorta(T);</span><br></pre></td></tr></table></figure>]]></content>
-      <categories>
-        <category>数学建模</category>
-      </categories>
-      <tags>
-        <tag>matlab</tag>
-        <tag>图论</tag>
-        <tag>最短路问题</tag>
-      </tags>
-  </entry>
-</search>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">T&#x3D;[0,20,15,inf,inf,inf,inf;</span><br><span class="line">   inf,0,inf,8,24,inf,inf;</span><br><span class="line">   inf,inf,0,10,inf,6,inf;</span><br><span class="line">   inf,inf,inf,0,10,8,inf;</span><br><span class="line">   inf,inf,inf,inf,0,inf,11;</span><br><span class="line">   inf,inf,inf,inf,inf,0,20];</span><br><span class="line">[d Q]&#x3D;shorta(T);</span><br></pre></td></tr></table></figure>
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/matlab/" rel="tag"># matlab</a>
+              <a href="/tags/%E5%9B%BE%E8%AE%BA/" rel="tag"># 图论</a>
+              <a href="/tags/%E6%9C%80%E7%9F%AD%E8%B7%AF%E9%97%AE%E9%A2%98/" rel="tag"># 最短路问题</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/06/10/MATLAB%E4%BC%98%E5%8C%96%E5%B7%A5%E5%85%B7%E7%AE%B1intlinprog%E8%A7%A3%E6%95%B4%E6%95%B0%E7%BA%BF%E6%80%A7%E8%A7%84%E5%88%92/" rel="prev" title="MATLAB优化工具箱intlinprog解整数线性规划">
+      <i class="fa fa-chevron-left"></i> MATLAB优化工具箱intlinprog解整数线性规划
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    <div class="comments" id="valine-comments"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#最短路"><span class="nav-number">1.</span> <span class="nav-text"> 最短路</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#概念"><span class="nav-number">1.1.</span> <span class="nav-text"> 概念</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#原理"><span class="nav-number">1.2.</span> <span class="nav-text"> 原理</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#dijkstra算法模型"><span class="nav-number">2.</span> <span class="nav-text"> Dijkstra算法模型</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#算法简介"><span class="nav-number">2.1.</span> <span class="nav-text"> 算法简介</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#算法流程"><span class="nav-number">2.2.</span> <span class="nav-text"> 算法流程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#例题"><span class="nav-number">2.3.</span> <span class="nav-text"> 例题</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#题目"><span class="nav-number">2.3.1.</span> <span class="nav-text"> 题目</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#思路"><span class="nav-number">2.3.2.</span> <span class="nav-text"> 思路</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#代码"><span class="nav-number">2.4.</span> <span class="nav-text"> 代码</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">John Doe</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">8</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">John Doe</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a>
+  </div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="Total Visitors">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="Total Views">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+<script>
+  (function() {
+    function leancloudSelector(url) {
+      url = encodeURI(url);
+      return document.getElementById(url).querySelector('.leancloud-visitors-count');
+    }
+
+    function addCount(Counter) {
+      var visitors = document.querySelector('.leancloud_visitors');
+      var url = decodeURI(visitors.id);
+      var title = visitors.dataset.flagTitle;
+
+      Counter('get', '/classes/Counter?where=' + encodeURIComponent(JSON.stringify({ url })))
+        .then(response => response.json())
+        .then(({ results }) => {
+          if (results.length > 0) {
+            var counter = results[0];
+            leancloudSelector(url).innerText = counter.time + 1;
+            Counter('put', '/classes/Counter/' + counter.objectId, { time: { '__op': 'Increment', 'amount': 1 } })
+              .catch(error => {
+                console.error('Failed to save visitor count', error);
+              });
+          } else {
+              Counter('post', '/classes/Counter', { title, url, time: 1 })
+                .then(response => response.json())
+                .then(() => {
+                  leancloudSelector(url).innerText = 1;
+                })
+                .catch(error => {
+                  console.error('Failed to create', error);
+                });
+          }
+        })
+        .catch(error => {
+          console.error('LeanCloud Counter Error', error);
+        });
+    }
+
+    function showTime(Counter) {
+      var visitors = document.querySelectorAll('.leancloud_visitors');
+      var entries = [...visitors].map(element => {
+        return decodeURI(element.id);
+      });
+
+      Counter('get', '/classes/Counter?where=' + encodeURIComponent(JSON.stringify({ url: { '$in': entries } })))
+        .then(response => response.json())
+        .then(({ results }) => {
+          for (let url of entries) {
+            let target = results.find(item => item.url === url);
+            leancloudSelector(url).innerText = target ? target.time : 0;
+          }
+        })
+        .catch(error => {
+          console.error('LeanCloud Counter Error', error);
+        });
+    }
+
+    let { app_id, app_key, server_url } = {"enable":true,"app_id":"OupuKKdQ2ej0ghUf3TQHwvEv-gzGzoHsz","app_key":"7bSkW9wwjNSG70XgWaJjbKsV","server_url":"oupukkdq.lc-cn-n1-shared.com","security":false};
+    function fetchData(api_server) {
+      var Counter = (method, url, data) => {
+        return fetch(`${api_server}/1.1${url}`, {
+          method,
+          headers: {
+            'X-LC-Id'     : app_id,
+            'X-LC-Key'    : app_key,
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(data)
+        });
+      };
+      if (CONFIG.page.isPost) {
+        if (CONFIG.hostname !== location.hostname) return;
+        addCount(Counter);
+      } else if (document.querySelectorAll('.post-title-link').length >= 1) {
+        showTime(Counter);
+      }
+    }
+
+    let api_server = app_id.slice(-9) !== '-MdYXbMMI' ? server_url : `https://${app_id.slice(0, 8).toLowerCase()}.api.lncldglobal.com`;
+
+    if (api_server) {
+      fetchData(api_server);
+    } else {
+      fetch('https://app-router.leancloud.cn/2/route?appId=' + app_id)
+        .then(response => response.json())
+        .then(({ api_server }) => {
+          fetchData('https://' + api_server);
+        });
+    }
+  })();
+</script>
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+      
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/katex@0/dist/katex.min.css">
+
+
+  
+
+
+<script>
+NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
+  NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+    var GUEST = ['nick', 'mail', 'link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item => {
+      return GUEST.includes(item);
+    });
+    new Valine({
+      el         : '#valine-comments',
+      verify     : false,
+      notify     : false,
+      appId      : 'OupuKKdQ2ej0ghUf3TQHwvEv-gzGzoHsz',
+      appKey     : '7bSkW9wwjNSG70XgWaJjbKsV',
+      placeholder: "Just go go",
+      avatar     : 'mm',
+      meta       : guest,
+      pageSize   : '10' || 10,
+      visitor    : false,
+      lang       : '' || 'zh-cn',
+      path       : location.pathname,
+      recordIP   : false,
+      serverURLs : ''
+    });
+  }, window.Valine);
+});
+</script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+</body>
+</html>
