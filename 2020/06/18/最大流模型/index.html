@@ -20,20 +20,22 @@
     var CONFIG = {"hostname":"flytococktail.github.io","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta name="description" content="最大流问题">
+  <meta name="description" content="最大流问题许多系统中包含了流量问题，例如公路系统中有车辆流，控制系统中有信息流，供水系统中有水流，金融系统中有现金流等等。对于这样一些包含了流量问题的系统，往往要求出其系统的最大流量。例如，某公路系统的容许通过的最多车辆数，某供水系统的最大水流量等等。给定一个带有收发点的网络，每条弧的赋权称为容量，在不超过每条弧的容量的前提下，确定每条弧的流量，求出从发点到收点的最大流量，这类问题通常称为最大流问">
 <meta property="og:type" content="article">
 <meta property="og:title" content="最大流模型">
 <meta property="og:url" content="https://flytococktail.github.io/2020/06/18/%E6%9C%80%E5%A4%A7%E6%B5%81%E6%A8%A1%E5%9E%8B/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="最大流问题">
+<meta property="og:description" content="最大流问题许多系统中包含了流量问题，例如公路系统中有车辆流，控制系统中有信息流，供水系统中有水流，金融系统中有现金流等等。对于这样一些包含了流量问题的系统，往往要求出其系统的最大流量。例如，某公路系统的容许通过的最多车辆数，某供水系统的最大水流量等等。给定一个带有收发点的网络，每条弧的赋权称为容量，在不超过每条弧的容量的前提下，确定每条弧的流量，求出从发点到收点的最大流量，这类问题通常称为最大流问">
 <meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://flytococktail.github.io/2020/06/18/%E6%9C%80%E5%A4%A7%E6%B5%81%E6%A8%A1%E5%9E%8B/0.png">
 <meta property="article:published_time" content="2020-06-18T09:44:56.000Z">
-<meta property="article:modified_time" content="2020-06-18T09:47:27.053Z">
+<meta property="article:modified_time" content="2020-06-18T14:57:42.094Z">
 <meta property="article:author" content="John Doe">
 <meta property="article:tag" content="matlab">
 <meta property="article:tag" content="图论">
 <meta property="article:tag" content="网络流模型">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://flytococktail.github.io/2020/06/18/%E6%9C%80%E5%A4%A7%E6%B5%81%E6%A8%A1%E5%9E%8B/0.png">
 
 <link rel="canonical" href="https://flytococktail.github.io/2020/06/18/%E6%9C%80%E5%A4%A7%E6%B5%81%E6%A8%A1%E5%9E%8B/">
 
@@ -220,7 +222,7 @@
               <span class="post-meta-item-text">Posted on</span>
               
 
-              <time title="Created: 2020-06-18 17:44:56 / Modified: 17:47:27" itemprop="dateCreated datePublished" datetime="2020-06-18T17:44:56+08:00">2020-06-18</time>
+              <time title="Created: 2020-06-18 17:44:56 / Modified: 22:57:42" itemprop="dateCreated datePublished" datetime="2020-06-18T17:44:56+08:00">2020-06-18</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -271,8 +273,39 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h1 id="最大流问题"><a class="markdownIt-Anchor" href="#最大流问题"></a> 最大流问题</h1>
+        <h1 id="最大流问题"><a href="#最大流问题" class="headerlink" title="最大流问题"></a>最大流问题</h1><p>许多系统中包含了流量问题，例如公路系统中有车辆流，控制系统中有信息流，供水系统中有水流，金融系统中有现金流等等。<br>对于这样一些包含了流量问题的系统，往往要求出其系统的最大流量。例如，某公路系统的容许通过的最多车辆数，某供水系统的最大水流量等等。<br>给定一个带有收发点的网络，每条弧的赋权称为容量，在不超过每条弧的容量的前提下，确定每条弧的流量，求出从发点到收点的最大流量，这类问题通常称为最大流问题。</p>
 <a id="more"></a>
+<h1 id="容量网络和可行流"><a href="#容量网络和可行流" class="headerlink" title="容量网络和可行流"></a>容量网络和可行流</h1><h2 id="边容量"><a href="#边容量" class="headerlink" title="边容量"></a>边容量</h2><p>网络$G=(V,A)$的边$(v_i,v_j)$的非负权数$w_ij$。</p>
+<h2 id="容量网络"><a href="#容量网络" class="headerlink" title="容量网络"></a>容量网络</h2><p>指定顶点$v_1$和$v_n$分别称为发点和收点，其余各点为中间点，发点的入次为0，收点的出次为0。该网络称为容量网络，记为$D=(V,A,W)$。</p>
+<h2 id="可行流"><a href="#可行流" class="headerlink" title="可行流"></a>可行流</h2><p>设通过每一弧$(v_i,v_j)$的流量为$x_{ij}$,若集合$X=\{x_{ij}|(v_i,v_j) \in A\}$ 满足：<br>(1) 弧流量限制条件：$0\leq x_{ij} \leq w_{ij},(v_i,v_j)\in A$<br>(2) 中间点平衡条件：$\sum\limits_{(v_i,v_j)\in A}x_{ij}=\sum\limits_{(v_i,v_j)\in A}x_{ji}$，$i,j=2,3,…,n-1$<br>则$X$称为网络$D$的可行流。</p>
+<h2 id="网络流的流总量"><a href="#网络流的流总量" class="headerlink" title="网络流的流总量"></a>网络流的流总量</h2><p>对于可行流来说，发点的流出量等于收点的流入量，即</p>
+<script type="math/tex; mode=display">
+f(X)=\sum\limits_{(v_1,v_j)\in A}x_{1j}=\sum\limits_{(v_j,v_n)\in A}x_{jn}</script><p>称$f(X)$为网络流的总流量。</p>
+<h2 id="零流"><a href="#零流" class="headerlink" title="零流"></a>零流</h2><p>当可行流给定时，其流值被唯一确定，可行流流量$x_ij$被调整时，其流值一般也会发生变化。特别地，若所有的$x_ij=0$，则称该可行流为零流，记为$X=0$，其总流量为0。</p>
+<h1 id="例题"><a href="#例题" class="headerlink" title="例题"></a>例题</h1><h2 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h2><p>假设某公司的产品在市场上供不应求，公司决定加班生产，并将尽可能多的产品运送到指定市场上销售。产品从工厂到市场要经过一些转运站，运送途径如图所示。图中$v_1$和$v_6$分别表示工厂和市场，$v_2~v_5$表示转运站。弧表示可供运货的途径，弧的权数表示该途径允许通过的最大货物数量。<br>问：该公司如何安排运送方案，才能使送到市场的产品数量最大？</p>
+<div style="width:50%;margin:auto"><img src="/2020/06/18/%E6%9C%80%E5%A4%A7%E6%B5%81%E6%A8%A1%E5%9E%8B/0.png" class></div>
+
+<h2 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h2><p>假设图中弧$(v_i,v_j)$的权数为$w_{ij}$，其上货物的流量为$x_{ij}$，$F$为从工厂发出的产品数量，则数学模型为</p>
+<script type="math/tex; mode=display">
+maxF=x_{12}+x_{13}\\
+s.t.
+\begin{cases}
+x_{12}+x_{32}=x_{24}\\
+x_{13}=x_{32}+x_{34}+x_{35}\\
+x_{24}+x_{34}=x_{45}+x_{46}\\
+x_{35}+x_{45}=x_{56}\\
+x_{46}+x_{56}=x_{12}+x_{13}\\
+0\leq x_{ij}\leq w_{ij}
+\end{cases}</script><h2 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h2><p>约束条件中前4个方程表示4个转运站应具有的性质：流入的货物数量等于流出的货物数量。<br>第5个约束方程表示从工厂发出的货物数量应与市场收到的货物数量相等。<br>最后的不等式表示流量非负且不突破运输能力限制。网络最大流问题是典型而又特别的线性规划问题。一个可行流就相当于一个可行解，而寻求最大流就相当于求网络容量的最优解。<br>但利用单纯形法求网络最大流问题的解计算量过大，而由于这一问题的特殊性，用网络模型求解则更加直观，简便。</p>
+<h2 id="数学模型"><a href="#数学模型" class="headerlink" title="数学模型"></a>数学模型</h2><p>一般地，寻求网络最大流就是找到一个可行流X，使网络发点到收点的总流量$f(X)$达到最大，其数学模型为</p>
+<script type="math/tex; mode=display">
+max \sum\limits_{(v_1,v_j)\in A}x_{1j}\qquad\qquad\qquad\\
+s.t.
+\begin{cases}
+0\leq x_{ij}\leq w_{ij},(v_i,v_j)\in A\\
+\sum\limits_{(v_i,v_j)\in A}x_{ij}-\sum\limits_{(v_j,v_i)\in A}x_{ji}=0,i,j\not =1,n\\
+\sum\limits_{(v_1,v_j)\in A}x_{1j}=\sum\limits_{(v_j,v_n)\in A}x_{jn}
+\end{cases}</script>
     </div>
 
     
@@ -295,7 +328,10 @@
     <a href="/2020/06/17/%E6%9C%80%E7%9F%AD%E8%B7%AF%E5%BE%84%E7%9A%84Floyd%E7%AE%97%E6%B3%95%E6%A8%A1%E5%9E%8B/" rel="prev" title="最短路径的Floyd算法模型">
       <i class="fa fa-chevron-left"></i> 最短路径的Floyd算法模型
     </a></div>
-      <div class="post-nav-item"></div>
+      <div class="post-nav-item">
+    <a href="/2020/06/18/Android-%E8%8E%B7%E5%8F%96%E6%89%AB%E6%8F%8F%E5%88%B0%E7%9A%84WiFi%E4%BF%A1%E5%8F%B7%E5%BC%BA%E5%BA%A6/" rel="next" title="Android-获取扫描到的WiFi信号强度">
+      Android-获取扫描到的WiFi信号强度 <i class="fa fa-chevron-right"></i>
+    </a></div>
     </div>
       </footer>
     
@@ -355,7 +391,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#最大流问题"><span class="nav-number">1.</span> <span class="nav-text"> 最大流问题</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#最大流问题"><span class="nav-number">1.</span> <span class="nav-text">最大流问题</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#容量网络和可行流"><span class="nav-number">2.</span> <span class="nav-text">容量网络和可行流</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#边容量"><span class="nav-number">2.1.</span> <span class="nav-text">边容量</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#容量网络"><span class="nav-number">2.2.</span> <span class="nav-text">容量网络</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#可行流"><span class="nav-number">2.3.</span> <span class="nav-text">可行流</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#网络流的流总量"><span class="nav-number">2.4.</span> <span class="nav-text">网络流的流总量</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#零流"><span class="nav-number">2.5.</span> <span class="nav-text">零流</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#例题"><span class="nav-number">3.</span> <span class="nav-text">例题</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#题目"><span class="nav-number">3.1.</span> <span class="nav-text">题目</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#解题思路"><span class="nav-number">3.2.</span> <span class="nav-text">解题思路</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#小结"><span class="nav-number">3.3.</span> <span class="nav-text">小结</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#数学模型"><span class="nav-number">3.4.</span> <span class="nav-text">数学模型</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -369,20 +405,20 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">10</span>
+          <span class="site-state-item-count">13</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-count">3</span>
         <span class="site-state-item-name">categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">8</span>
+        <span class="site-state-item-count">10</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
