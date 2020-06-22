@@ -20,19 +20,19 @@
     var CONFIG = {"hostname":"flytococktail.github.io","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta name="description" content="问题在使用EditText时，Graphical Layout 无法预览，并报错Android Exception raised during rendering:java.lang.System.arraycopy([CI[CII)V 原因SDK API版本为20，这个是Android用于开发可穿戴设备的，不支持EditText。将API改为20之前的就行了。 步骤第一步：下载低版本的API若已">
+  <meta name="description" content="问题 在使用EditText时，Graphical Layout 无法预览，并报错Android Exception raised during rendering:java.lang.System.arraycopy([CI[CII)V">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Android Exception raised during rendering: java.lang.System.arraycopy([CI[CII)V">
 <meta property="og:url" content="https://flytococktail.github.io/2020/06/18/Android-Exception-raised-during-rendering-java-lang-System-arraycopy-CI-CII-V/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="问题在使用EditText时，Graphical Layout 无法预览，并报错Android Exception raised during rendering:java.lang.System.arraycopy([CI[CII)V 原因SDK API版本为20，这个是Android用于开发可穿戴设备的，不支持EditText。将API改为20之前的就行了。 步骤第一步：下载低版本的API若已">
+<meta property="og:description" content="问题 在使用EditText时，Graphical Layout 无法预览，并报错Android Exception raised during rendering:java.lang.System.arraycopy([CI[CII)V">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://flytococktail.github.io/2020/06/18/Android-Exception-raised-during-rendering-java-lang-System-arraycopy-CI-CII-V/0.png">
 <meta property="og:image" content="https://flytococktail.github.io/2020/06/18/Android-Exception-raised-during-rendering-java-lang-System-arraycopy-CI-CII-V/1.png">
 <meta property="og:image" content="https://flytococktail.github.io/2020/06/18/Android-Exception-raised-during-rendering-java-lang-System-arraycopy-CI-CII-V/2.png">
 <meta property="og:image" content="https://flytococktail.github.io/2020/06/18/Android-Exception-raised-during-rendering-java-lang-System-arraycopy-CI-CII-V/3.png">
 <meta property="article:published_time" content="2020-06-18T15:25:05.000Z">
-<meta property="article:modified_time" content="2020-06-18T15:46:39.353Z">
+<meta property="article:modified_time" content="2020-06-20T15:05:31.760Z">
 <meta property="article:author" content="John Doe">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://flytococktail.github.io/2020/06/18/Android-Exception-raised-during-rendering-java-lang-System-arraycopy-CI-CII-V/0.png">
@@ -220,10 +220,16 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">Posted on</span>
-              
 
-              <time title="Created: 2020-06-18 23:25:05 / Modified: 23:46:39" itemprop="dateCreated datePublished" datetime="2020-06-18T23:25:05+08:00">2020-06-18</time>
+              <time title="Created: 2020-06-18 23:25:05" itemprop="dateCreated datePublished" datetime="2020-06-18T23:25:05+08:00">2020-06-18</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-06-20 23:05:31" itemprop="dateModified" datetime="2020-06-20T23:05:31+08:00">2020-06-20</time>
+              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
@@ -273,23 +279,27 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h1 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h1><p>在使用EditText时，Graphical Layout 无法预览，并报错Android Exception raised during rendering:java.lang.System.arraycopy([CI[CII)V</p>
-<h1 id="原因"><a href="#原因" class="headerlink" title="原因"></a>原因</h1><p>SDK API版本为20，这个是Android用于开发可穿戴设备的，不支持EditText。将API改为20之前的就行了。</p>
-<h1 id="步骤"><a href="#步骤" class="headerlink" title="步骤"></a>步骤</h1><h2 id="第一步：下载低版本的API"><a href="#第一步：下载低版本的API" class="headerlink" title="第一步：下载低版本的API"></a>第一步：下载低版本的API</h2><p>若已有低版本的API，可以跳过这一步。<br>地址：<a href="https://www.androiddevtools.cn/" target="_blank" rel="noopener">https://www.androiddevtools.cn/</a></p>
+        <h1 id="问题"><a class="markdownIt-Anchor" href="#问题"></a> 问题</h1>
+<p>在使用EditText时，Graphical Layout 无法预览，并报错Android Exception raised during rendering:java.lang.System.arraycopy([CI[CII)V</p>
+<a id="more"></a>
+<h1 id="原因"><a class="markdownIt-Anchor" href="#原因"></a> 原因</h1>
+<p>SDK API版本为20，这个是Android用于开发可穿戴设备的，不支持EditText。将API改为20之前的就行了。</p>
+<h1 id="步骤"><a class="markdownIt-Anchor" href="#步骤"></a> 步骤</h1>
+<h2 id="第一步下载低版本的api"><a class="markdownIt-Anchor" href="#第一步下载低版本的api"></a> 第一步：下载低版本的API</h2>
+<p>若已有低版本的API，可以跳过这一步。<br>
+地址：<a href="https://www.androiddevtools.cn/" target="_blank" rel="noopener">https://www.androiddevtools.cn/</a></p>
 <div style="width:30%;margin:auto"><img src="/2020/06/18/Android-Exception-raised-during-rendering-java-lang-System-arraycopy-CI-CII-V/0.png" class></div>
 android 4.4W对应的就是API 20的，下载4.4.2版本以下的即可。
-
-## 第二步：安装低版本的API
-若已有低版本的API，可以跳过这一步。  
-下载并解压后，将解压出的整个文件夹复制或者移动到 your sdk 路径/platforms文件夹，然后打开SDK Manager，打开 Tools(工具)菜单选择 Options(选项)菜单项打开Android SDK Manager Setting对话框，点击 Clear Cache(清除缓存)按钮，然后重启Eclipse(或Android Studio)和SDK Manager。
-
-## 第三步：更改工程的API版本
-右键工程文件夹 ——> Build Path ——> Configure Build Path
+<h2 id="第二步安装低版本的api"><a class="markdownIt-Anchor" href="#第二步安装低版本的api"></a> 第二步：安装低版本的API</h2>
+<p>若已有低版本的API，可以跳过这一步。<br>
+下载并解压后，将解压出的整个文件夹复制或者移动到 your sdk 路径/platforms文件夹，然后打开SDK Manager，打开 Tools(工具)菜单选择 Options(选项)菜单项打开Android SDK Manager Setting对话框，点击 Clear Cache(清除缓存)按钮，然后重启Eclipse(或Android Studio)和SDK Manager。</p>
+<h2 id="第三步更改工程的api版本"><a class="markdownIt-Anchor" href="#第三步更改工程的api版本"></a> 第三步：更改工程的API版本</h2>
+<p>右键工程文件夹 ——&gt; Build Path ——&gt; Configure Build Path</p>
 <div style="width:50%;margin:auto"><img src="/2020/06/18/Android-Exception-raised-during-rendering-java-lang-System-arraycopy-CI-CII-V/1.png" class></div>
 在左栏找到Android并单击，在右侧找到Project Build Target，并切换成低版本。
 <div style="width:50%;margin:auto"><img src="/2020/06/18/Android-Exception-raised-during-rendering-java-lang-System-arraycopy-CI-CII-V/2.png" class></div>
-
-<h2 id="第四步：在Graphical-Layout界面切换API版本"><a href="#第四步：在Graphical-Layout界面切换API版本" class="headerlink" title="第四步：在Graphical Layout界面切换API版本"></a>第四步：在Graphical Layout界面切换API版本</h2><div style="width:50%;margin:auto"><img src="/2020/06/18/Android-Exception-raised-during-rendering-java-lang-System-arraycopy-CI-CII-V/3.png" class></div>
+<h2 id="第四步在graphical-layout界面切换api版本"><a class="markdownIt-Anchor" href="#第四步在graphical-layout界面切换api版本"></a> 第四步：在Graphical Layout界面切换API版本</h2>
+<div style="width:50%;margin:auto"><img src="/2020/06/18/Android-Exception-raised-during-rendering-java-lang-System-arraycopy-CI-CII-V/3.png" class></div>
     </div>
 
     
@@ -370,7 +380,7 @@ android 4.4W对应的就是API 20的，下载4.4.2版本以下的即可。
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#问题"><span class="nav-number">1.</span> <span class="nav-text">问题</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#原因"><span class="nav-number">2.</span> <span class="nav-text">原因</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#步骤"><span class="nav-number">3.</span> <span class="nav-text">步骤</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#第一步：下载低版本的API"><span class="nav-number">3.1.</span> <span class="nav-text">第一步：下载低版本的API</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第四步：在Graphical-Layout界面切换API版本"><span class="nav-number">3.2.</span> <span class="nav-text">第四步：在Graphical Layout界面切换API版本</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#问题"><span class="nav-number">1.</span> <span class="nav-text"> 问题</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#原因"><span class="nav-number">2.</span> <span class="nav-text"> 原因</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#步骤"><span class="nav-number">3.</span> <span class="nav-text"> 步骤</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#第一步下载低版本的api"><span class="nav-number">3.1.</span> <span class="nav-text"> 第一步：下载低版本的API</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第二步安装低版本的api"><span class="nav-number">3.2.</span> <span class="nav-text"> 第二步：安装低版本的API</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第三步更改工程的api版本"><span class="nav-number">3.3.</span> <span class="nav-text"> 第三步：更改工程的API版本</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第四步在graphical-layout界面切换api版本"><span class="nav-number">3.4.</span> <span class="nav-text"> 第四步：在Graphical Layout界面切换API版本</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -384,7 +394,7 @@ android 4.4W对应的就是API 20的，下载4.4.2版本以下的即可。
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">13</span>
+          <span class="site-state-item-count">14</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
